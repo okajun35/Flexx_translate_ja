@@ -1,0 +1,9 @@
+Event examples
+==============
+
+* `flexx_tutorial_event.ipynb <https://github.com/zoofIO/flexx-notebooks/blob/master/flexx_tutorial_event.ipynb>`_ (external notebook)
+* :ref:`basic_emit.py`
+* :ref:`caching.py`
+* :ref:`greeter.py`
+* :ref:`react_to_props.py`
+* :ref:`temperature.py`

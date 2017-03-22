@@ -1,0 +1,10 @@
+Dock
+----
+
+.. automodule:: flexx.ui.layouts._dock
+
+----
+
+.. autoclass:: flexx.ui.DockPanel
+ :members:
+

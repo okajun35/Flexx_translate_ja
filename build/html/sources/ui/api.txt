@@ -1,0 +1,86 @@
+Ui API
+======
+
+This is a list of all widget classes provided by ``flexx.ui``. :class:`Widget <flexx.ui.Widget>` is the base class of all widgets. There is one document per widget type. Each document contains examples with the widget(s) defined within.
+
+
+Base widget:
+
+* :class:`Widget <flexx.ui.Widget>`
+
+Layouts:
+
+* :class:`BoxLayout <flexx.ui.BoxLayout>`
+* :class:`BoxPanel <flexx.ui.BoxPanel>`
+* :class:`DockPanel <flexx.ui.DockPanel>`
+* :class:`FormLayout <flexx.ui.FormLayout>`
+* :class:`GridLayout <flexx.ui.GridLayout>`
+* :class:`GridPanel <flexx.ui.GridPanel>`
+* :class:`HBox <flexx.ui.HBox>`
+* :class:`HBoxPanel <flexx.ui.HBoxPanel>`
+* :class:`Layout <flexx.ui.Layout>`
+* :class:`PinboardLayout <flexx.ui.PinboardLayout>`
+* :class:`PlotLayout <flexx.ui.PlotLayout>`
+* :class:`SplitPanel <flexx.ui.SplitPanel>`
+* :class:`StackedPanel <flexx.ui.StackedPanel>`
+* :class:`TabPanel <flexx.ui.TabPanel>`
+* :class:`VBox <flexx.ui.VBox>`
+* :class:`VBoxPanel <flexx.ui.VBoxPanel>`
+
+Widgets:
+
+* :class:`BaseButton <flexx.ui.BaseButton>`
+* :class:`BokehWidget <flexx.ui.BokehWidget>`
+* :class:`Button <flexx.ui.Button>`
+* :class:`CanvasWidget <flexx.ui.CanvasWidget>`
+* :class:`CheckBox <flexx.ui.CheckBox>`
+* :class:`ColorSelectWidget <flexx.ui.ColorSelectWidget>`
+* :class:`ComboBox <flexx.ui.ComboBox>`
+* :class:`Div <flexx.ui.Div>`
+* :class:`DropdownContainer <flexx.ui.DropdownContainer>`
+* :class:`GroupWidget <flexx.ui.GroupWidget>`
+* :class:`IFrame <flexx.ui.IFrame>`
+* :class:`ImageWidget <flexx.ui.ImageWidget>`
+* :class:`Label <flexx.ui.Label>`
+* :class:`LineEdit <flexx.ui.LineEdit>`
+* :class:`PlotWidget <flexx.ui.PlotWidget>`
+* :class:`ProgressBar <flexx.ui.ProgressBar>`
+* :class:`RadioButton <flexx.ui.RadioButton>`
+* :class:`Slider <flexx.ui.Slider>`
+* :class:`ToggleButton <flexx.ui.ToggleButton>`
+* :class:`TreeItem <flexx.ui.TreeItem>`
+* :class:`TreeWidget <flexx.ui.TreeWidget>`
+* :class:`VideoWidget <flexx.ui.VideoWidget>`
+* :class:`Widget <flexx.ui.Widget>`
+* :class:`YoutubeWidget <flexx.ui.YoutubeWidget>`
+
+.. toctree::
+  :maxdepth: 1
+  :hidden:
+
+  plotlayout
+  widget
+  box
+  dock
+  form
+  grid
+  layout
+  pinboard
+  split
+  stack
+  tabs
+  bokeh
+  button
+  canvas
+  color
+  dropdown
+  group
+  html
+  iframe
+  label
+  lineedit
+  media
+  plotwidget
+  progressbar
+  slider
+  tree

@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyScript introduction &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Reference for flexx.pyscript" href="index.html" />
+    <link rel="next" title="PyScript API" href="api.html" />
+    <link rel="prev" title="Reference for flexx.pyscript" href="index.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.pyscript">
+<span id="pyscript-introduction"></span><h1>PyScript introduction<a class="headerlink" href="#module-flexx.pyscript" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>The pyscript module provides functionality for transpiling Python code
+to JavaScript.</p>
+<div class="section" id="quick-intro">
+<h2>Quick intro<a class="headerlink" href="#quick-intro" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>This is a brief intro for using PyScript. For more details see the
+sections below.</p>
+<p>PyScript is a tool to write JavaScript using (a subset) of the Python
+language. All relevant buildins, and the methods of list, dict and str
+are supported. Not supported are set, slicing with steps,
+<code class="docutils literal"><span class="pre">**kwargs</span></code>, <code class="docutils literal"><span class="pre">with</span></code>, <code class="docutils literal"><span class="pre">yield</span></code>. Imports are not supported. Other than that,
+most Python code should work as expected, though if you pry hard enough the
+JavaScript may shine through. As a rule of thumb, the code should behave
+as expected when correct, but error reporting may not be very Pythonic.</p>
+<p>The most important functions you need to know about are
+<a class="reference internal" href="api.html#flexx.pyscript.py2js" title="flexx.pyscript.py2js"><code class="xref py py-func docutils literal"><span class="pre">py2js</span></code></a> and
+<a class="reference internal" href="api.html#flexx.pyscript.evalpy" title="flexx.pyscript.evalpy"><code class="xref py py-func docutils literal"><span class="pre">evalpy</span></code></a>.
+In principal you do not need knowledge of JavaScript to write PyScript
+code.</p>
+</div>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>There is an increase in Python projects that target web technology to
+handle visualization and user interaction.
+PyScript grew out of a desire to allow writing JavaScript callbacks in
+Python, to allow user-defined interaction to be flexible, fast, and
+stand-alone.</p>
+<p>This resulted in the following two main goals:</p>
+<ul class="simple">
+<li>To make writing JavaScript easier and less frustrating, by letting
+people write it with the Python syntax and buildins, and fixing some
+of JavaScripts quirks.</li>
+<li>To allow JavaScript snippets to be defined naturally inside a Python
+program.</li>
+</ul>
+<p>Code produced by PyScript works standalone. Any (PyScript-compatible)
+Python snippet can be converted to JS; you don&#8217;t need another JS library
+to run it.</p>
+<p>PyScript can also be used to develop standalone JavaScript (AMD) modules.</p>
+</div>
+<div class="section" id="pyscript-is-just-javascript">
+<h2>PyScript is just JavaScript<a class="headerlink" href="#pyscript-is-just-javascript" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The purpose of projects like Skulpt or PyJS is to enable full Python
+support in the browser. This approach will always be plagued by a
+fundamental limitation: libraries that are not pure Python (like numpy)
+will not work.</p>
+<p>PyScript takes a more modest approach; it is a tool that allows one to
+write JavaScript with a Python syntax. PyScript is just JavaScript.</p>
+<p>This means that depending on what you want to achieve, you may still need
+to know a thing or two about how JavaScript works. Further, not all Python
+code can be converted (e.g. <code class="docutils literal"><span class="pre">**kwargs</span></code> are not supported), and
+lists and dicts are really just JavaScript arrays and objects, respectively.</p>
+</div>
+<div class="section" id="pythonic">
+<h2>Pythonic<a class="headerlink" href="#pythonic" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PyScript makes writing JS more &#8220;Pythonic&#8221;. Apart from allowing Python syntax
+for loops, classes, etc, all relevant Python buildins are supported,
+as well as the methods of list, dict and str. E.g. you can use
+<code class="docutils literal"><span class="pre">print()</span></code>, <code class="docutils literal"><span class="pre">range()</span></code>, <code class="docutils literal"><span class="pre">L.append()</span></code>, <code class="docutils literal"><span class="pre">D.update()</span></code>, etc.</p>
+<p>The empty list and dict evaluate to false (whereas in JS it&#8217;s
+true), and <code class="docutils literal"><span class="pre">isinstance()</span></code> just works (whereas JS&#8217; <code class="docutils literal"><span class="pre">typeof</span></code> is
+broken).</p>
+<p>Deep comparisons are supported (e.g. for <code class="docutils literal"><span class="pre">==</span></code> and <code class="docutils literal"><span class="pre">in</span></code>), so you can
+actually compare two lists or dicts, or even a structure of nested
+lists/dicts. Lists can be combined with the plus operator, and lists
+and strings can be repeated with the multiply (star) operator. Class
+methods are bound functions.</p>
+</div>
+<div class="section" id="caveats">
+<span id="pyscript-caveats"></span><h2>Caveats<a class="headerlink" href="#caveats" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>PyScript fixes some of JS&#8217;s quirks, but it&#8217;s still just JavaScript.
+Here&#8217;s a list of things to keep an eye out for. This list is likely
+incomplete. We recommend familiarizing yourself with JavaScript if you
+plan to make heavy use of PyScript.</p>
+<ul class="simple">
+<li>JavasScript has a concept of <code class="docutils literal"><span class="pre">null</span></code> (i.e. <code class="docutils literal"><span class="pre">None</span></code>), as well as
+<code class="docutils literal"><span class="pre">undefined</span></code>. Sometimes you may want to use <code class="docutils literal"><span class="pre">if</span> <span class="pre">x</span> <span class="pre">is</span> <span class="pre">None</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">is</span>
+<span class="pre">undefined:</span> <span class="pre">...</span></code>.</li>
+<li>Accessing an attribute that does not exist will not raise an
+AttributeError but yield <code class="docutils literal"><span class="pre">undefined</span></code>.</li>
+<li>Magic functions on classes (e.g. for operator overloading) do not work.</li>
+<li>Calling an object that starts with a capital letter is assumed to be
+a class instantiation (using <code class="docutils literal"><span class="pre">new</span></code>): PyScript classes <em>must</em> start
+with a capital letter, and any other callables must not.</li>
+</ul>
+</div>
+<div class="section" id="pyscript-is-valid-python">
+<h2>PyScript is valid Python<a class="headerlink" href="#pyscript-is-valid-python" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Other than e.g. RapydScript, PyScript is valid Python. This allows
+creating modules that are a mix of real Python and PyScript. You can easily
+write code that runs correctly both as Python and PyScript. Raw JS can
+be included by defining a function with only a docstring.</p>
+<p>PyScript itself (the compiler) is written in Python. Perhaps PyScript can
+at some point compile itself, so that it becomes possible to define
+PyScript inside HTML documents.</p>
+</div>
+<div class="section" id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Because PyScript produces relatively bare JavaScript, it is pretty fast.
+Faster than CPython, and significantly faster than Brython and friends.
+Check out <code class="docutils literal"><span class="pre">examples/app/benchmark.py</span></code>.</p>
+<p>Nevertheless, the overhead to realize the more Pythonic behavior can
+have a negative impact on performance in tight loops (in comparison to
+writing the JS by hand). The recommended approach is to write
+performance critical code in pure JavaScript if necessary. This can be
+done by defining a function with only a docstring (containing the JS
+code).</p>
+</div>
+<div class="section" id="support">
+<span id="pyscript-support"></span><h2>Support<a class="headerlink" href="#support" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>This is an overview of the language features that PyScript
+supports/lacks.</p>
+<p>Not currently supported:</p>
+<ul class="simple">
+<li>import (maybe we should translate an import to <code class="docutils literal"><span class="pre">require()</span></code>?)</li>
+<li>the <code class="docutils literal"><span class="pre">set</span></code> class (JS has no set, but we could create one?)</li>
+<li>slicing with steps (JS does not support this)</li>
+<li>support for <code class="docutils literal"><span class="pre">**kwargs</span></code> (maps badly to JS call mechanism)</li>
+<li>The <code class="docutils literal"><span class="pre">with</span></code> statement (no equivalent in JS)</li>
+<li>Generators, i.e. <code class="docutils literal"><span class="pre">yield</span></code> (not widely supported in JS)</li>
+</ul>
+<p>Supported basics:</p>
+<ul class="simple">
+<li>numbers, strings, lists, dicts (the latter become JS arrays and objects)</li>
+<li>operations: binary, unary, boolean, power, integer division, <code class="docutils literal"><span class="pre">in</span></code> operator</li>
+<li>comparisons (<code class="docutils literal"><span class="pre">==</span></code> -&gt; <code class="docutils literal"><span class="pre">==</span></code>, <code class="docutils literal"><span class="pre">is</span></code> -&gt; <code class="docutils literal"><span class="pre">===</span></code>)</li>
+<li>tuple packing and unpacking</li>
+<li>basic string formatting</li>
+<li>slicing with start end end (though not with step)</li>
+<li>if-statements and single-line if-expressions</li>
+<li>while-loops and for-loops supporting continue, break, and else-clauses</li>
+<li>for-loops using <code class="docutils literal"><span class="pre">range()</span></code></li>
+<li>for-loop over arrays</li>
+<li>for-loop over dict/object using <code class="docutils literal"><span class="pre">.keys()</span></code>, <code class="docutils literal"><span class="pre">.values()</span></code> and <code class="docutils literal"><span class="pre">.items()</span></code></li>
+<li>function calls can have <code class="docutils literal"><span class="pre">*args</span></code></li>
+<li>function defs can have default arguments and <code class="docutils literal"><span class="pre">*args</span></code></li>
+<li>lambda expressions</li>
+<li>list comprehensions</li>
+<li>classes, with (single) inheritance, and the use of <code class="docutils literal"><span class="pre">super()</span></code></li>
+<li>raising and catching exceptions, assertions</li>
+<li>creation of &#8220;modules&#8221;</li>
+<li>globals / nonlocal</li>
+</ul>
+<p>Supported Python conveniences:</p>
+<ul class="simple">
+<li>use of <code class="docutils literal"><span class="pre">self</span></code> is translated to <code class="docutils literal"><span class="pre">this</span></code></li>
+<li><code class="docutils literal"><span class="pre">print()</span></code> becomes <code class="docutils literal"><span class="pre">console.log()</span></code> (also supports <code class="docutils literal"><span class="pre">sep</span></code> and <code class="docutils literal"><span class="pre">end</span></code>)</li>
+<li><code class="docutils literal"><span class="pre">isinstance()</span></code> Just Works (for primitive types as well as
+user-defined classes)</li>
+<li>an empty list or dict evaluates to False as in Python.</li>
+<li>all Python buildin functions that make sense in JS are supported:
+isinstance, issubclass, callable, hasattr, getattr, setattr, delattr,
+print, len, max, min, chr, ord, dict, list, tuple, range, pow, sum,
+round, int, float, str, bool, abs, divmod, all, any, enumerate, zip,
+reversed, sorted, filter, map.</li>
+<li>all methods of list, dict and str are supported (except a few string
+methods: encode format format_map isdecimal isdigit isprintable maketrans)</li>
+<li>the default return value of a function is <code class="docutils literal"><span class="pre">None</span></code>/<code class="docutils literal"><span class="pre">null</span></code> instead
+of <code class="docutils literal"><span class="pre">undefined</span></code>.</li>
+<li>list concatenation using the plus operator, and list/str repeating
+using the star operator.</li>
+<li>deep comparisons.</li>
+<li>class methods are bound functions (i.e. <code class="docutils literal"><span class="pre">this</span></code> is fixed to the
+instance).</li>
+<li>functions that are defined in another function (a.k.a closures) that do not
+have self/this as a first argument, are bound the the same instance as the
+function in which it is defined.</li>
+</ul>
+</div>
+<div class="section" id="other-functionality">
+<h2>Other functionality<a class="headerlink" href="#other-functionality" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The PyScript package provides a few other &#8220;utilities&#8221; to deal with JS code,
+such as renaming function/class definitions, and creating JS modules
+(AMD, UMD, etc.).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyScript introduction</a><ul>
+<li><a class="reference internal" href="#quick-intro">Quick intro</a></li>
+<li><a class="reference internal" href="#goals">Goals</a></li>
+<li><a class="reference internal" href="#pyscript-is-just-javascript">PyScript is just JavaScript</a></li>
+<li><a class="reference internal" href="#pythonic">Pythonic</a></li>
+<li><a class="reference internal" href="#caveats">Caveats</a></li>
+<li><a class="reference internal" href="#pyscript-is-valid-python">PyScript is valid Python</a></li>
+<li><a class="reference internal" href="#performance">Performance</a></li>
+<li><a class="reference internal" href="#support">Support</a></li>
+<li><a class="reference internal" href="#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.pyscript</a><ul>
+      <li>Previous: <a href="index.html" title="前の章へ">Reference for flexx.pyscript</a></li>
+      <li>Next: <a href="api.html" title="次の章へ">PyScript API</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/pyscript/intro.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/pyscript/intro.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

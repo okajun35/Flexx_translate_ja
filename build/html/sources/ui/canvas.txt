@@ -1,0 +1,10 @@
+Canvas
+------
+
+.. automodule:: flexx.ui.widgets._canvas
+
+----
+
+.. autoclass:: flexx.ui.CanvasWidget
+ :members:
+

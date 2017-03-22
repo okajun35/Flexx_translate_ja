@@ -1,0 +1,10 @@
+Slider
+------
+
+.. automodule:: flexx.ui.widgets._slider
+
+----
+
+.. autoclass:: flexx.ui.Slider
+ :members:
+

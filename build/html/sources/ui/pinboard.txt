@@ -1,0 +1,10 @@
+Pinboard
+--------
+
+.. automodule:: flexx.ui.layouts._pinboard
+
+----
+
+.. autoclass:: flexx.ui.PinboardLayout
+ :members:
+

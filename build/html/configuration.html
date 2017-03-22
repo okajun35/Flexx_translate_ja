@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuring Flexx &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="static/translations.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="index.html" />
+    <link rel="up" title="CLI and configuration" href="cli_and_config.html" />
+    <link rel="next" title="Release notes and roadmap" href="releasenotes.html" />
+    <link rel="prev" title="Command line interface" href="cli.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuring-flexx">
+<h1>Configuring Flexx<a class="headerlink" href="#configuring-flexx" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>This page lists the configuration options available to Flexx, implemented
+via the <a class="reference internal" href="util/config.html#flexx.util.config.Config" title="flexx.util.config.Config"><code class="xref py py-class docutils literal"><span class="pre">Config</span></code></a> class. Configuration
+options are read from <code class="docutils literal"><span class="pre">&lt;appdata&gt;/.flexx.cfg</span></code> (check
+<code class="docutils literal"><span class="pre">flexx.util.config.appdata_dir()</span></code> for the actual location),
+and can also be set using
+environment variables and command line arguments, as explained below.
+Alternatively, options can be set directly in Python via
+<code class="docutils literal"><span class="pre">flexx.config.foo</span> <span class="pre">=</span> <span class="pre">3</span></code>.</p>
+<dl class="data">
+<dt id="flexx.config">
+<code class="descclassname">flexx.</code><code class="descname">config</code><a class="headerlink" href="#flexx.config" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Configuration object for flexx</p>
+<p>The options below can be set from different sources, and are
+evaluated in the following order:</p>
+<ul class="simple">
+<li>From the default value.</li>
+<li>From .cfg or .ini file, or a string in cfg format.</li>
+<li>From environment variables, e.g. <code class="docutils literal"><span class="pre">FLEXX_FOO=3</span></code>.</li>
+<li>From command-line arguments, e.g. <code class="docutils literal"><span class="pre">--flexx-foo=3</span></code>.</li>
+<li>From setting the config option directly, e.g. <code class="docutils literal"><span class="pre">config.foo</span> <span class="pre">=</span> <span class="pre">3</span></code>.</li>
+</ul>
+<p>Use <code class="docutils literal"><span class="pre">print(config)</span></code> to get a summary of the current values and
+from which sources they were set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chrome_exe</strong> (<em>str</em>) &#8211; The location of the Chrome/Chromium executable. Auto-detect by default. (default &#8216;&#8217;)</li>
+<li><strong>cookie_secret</strong> (<em>str</em>) &#8211; The secret key to encode cookies. (default &#8216;flexx_secret&#8217;)</li>
+<li><strong>firefox_exe</strong> (<em>str</em>) &#8211; The location of the Firefox executable. Auto-detect by default. (default &#8216;&#8217;)</li>
+<li><strong>host_whitelist</strong> (<em>str</em>) &#8211; Comma separated list of allowed &lt;host&gt;:&lt;port&gt; values to pass cross-origin checks. (default &#8216;&#8217;)</li>
+<li><strong>hostname</strong> (<em>str</em>) &#8211; The default hostname to serve apps. (default &#8216;localhost&#8217;)</li>
+<li><strong>log_level</strong> (<em>str</em>) &#8211; The log level to use (DEBUG, INFO, WARNING, ERROR) (default &#8216;info&#8217;)</li>
+<li><strong>nw_exe</strong> (<em>str</em>) &#8211; The location of the NW.js executable. Auto-install by default. (default &#8216;&#8217;)</li>
+<li><strong>port</strong> (<em>int</em>) &#8211; The default port to serve apps. Zero means auto-select. (default 0)</li>
+<li><strong>ssl_certfile</strong> (<em>str</em>) &#8211; The cert file for https server. (default &#8216;&#8217;)</li>
+<li><strong>ssl_keyfile</strong> (<em>str</em>) &#8211; The key file for https server. (default &#8216;&#8217;)</li>
+<li><strong>webruntime</strong> (<em>str</em>) &#8211; The default web runtime to use. Default is &#8220;app or browser&#8221;. (default &#8216;&#8217;)</li>
+<li><strong>ws_timeout</strong> (<em>int</em>) &#8211; If the websocket is idle for this amount of seconds, it is closed. (default 20)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cli_and_config.html">CLI and configuration</a><ul>
+      <li>Previous: <a href="cli.html" title="前の章へ">Command line interface</a></li>
+      <li>Next: <a href="releasenotes.html" title="次の章へ">Release notes and roadmap</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/configuration.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="sources/configuration.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,10 @@
+Progressbar
+-----------
+
+.. automodule:: flexx.ui.widgets._progressbar
+
+----
+
+.. autoclass:: flexx.ui.ProgressBar
+ :members:
+

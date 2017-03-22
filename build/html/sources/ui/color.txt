@@ -1,0 +1,10 @@
+Color
+-----
+
+.. automodule:: flexx.ui.widgets._color
+
+----
+
+.. autoclass:: flexx.ui.ColorSelectWidget
+ :members:
+

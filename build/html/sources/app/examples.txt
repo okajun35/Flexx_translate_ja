@@ -1,0 +1,14 @@
+App examples
+============
+
+* `flexx_tutorial_app.ipynb <https://github.com/zoofIO/flexx-notebooks/blob/master/flexx_tutorial_app.ipynb>`_ (external notebook)
+* :ref:`adding_handlers.py`
+* :ref:`benchmark.py`
+* :ref:`find_prime.py`
+* :ref:`flexx_in_thread.py`
+* :ref:`init_order1.py`
+* :ref:`init_order2.py`
+* :ref:`interactive.py`
+* :ref:`parent_children.py`
+* :ref:`react_to_props_js.py`
+* :ref:`serve_ssl.py`

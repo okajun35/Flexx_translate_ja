@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tree &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Ui API" href="api.html" />
+    <link rel="next" title="Ui examples" href="examples.html" />
+    <link rel="prev" title="Slider" href="slider.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.ui.widgets._tree">
+<span id="tree"></span><h1>Tree<a class="headerlink" href="#module-flexx.ui.widgets._tree" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>A TreeWidget object can contain TreeItems, which in turn, can contain
+TreeItems to construct a tree. First an example flat list with items
+that are selectable and checkable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeWidget</span><span class="p">(</span><span class="n">max_selected</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs&#39;</span><span class="p">]:</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example1043b9b2f475a55ab92ced583dabc4f8.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 120px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example1043b9b2f475a55ab92ced583dabc4f8.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><p>Next, a tree example illustrating connecting to various item events,
+and custom styling:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    .flx-TreeWidget {</span>
+<span class="s1">        background: #000;</span>
+<span class="s1">        color: #afa;</span>
+<span class="s1">    }</span>
+<span class="s1">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">BoxPanel</span><span class="p">():</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;overflow-y: scroll;&#39;</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeWidget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_selected</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs&#39;</span><span class="p">]:</span>
+                    <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                            <span class="n">item2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">t</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="si">%i</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="k">with</span> <span class="n">item2</span><span class="p">:</span>
+                                    <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;more info on A&#39;</span><span class="p">)</span>
+                                    <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;more info on B&#39;</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;tree.items**.checked&#39;</span><span class="p">,</span> <span class="s1">&#39;tree.items**.selected&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;tree.items**.collapsed&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">ev</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">text</span>
+                <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">new_value</span><span class="p">:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="nb">id</span> <span class="o">+</span> <span class="s1">&#39; was &#39;</span> <span class="o">+</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="nb">id</span> <span class="o">+</span> <span class="s1">&#39; was &#39;</span> <span class="o">+</span> <span class="s1">&#39;un-&#39;</span> <span class="o">+</span> <span class="n">ev</span><span class="o">.</span><span class="n">type</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span> <span class="o">+</span> <span class="s1">&#39;&lt;br /&gt;&#39;</span> <span class="o">+</span>  <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example18dae141e4b1f33bbf7d044aa308513f.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 250px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example18dae141e4b1f33bbf7d044aa308513f.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><hr class="docutils" />
+<dl class="class">
+<dt id="flexx.ui.TreeItem">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">TreeItem</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.TreeItem" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="../app/api.html#flexx.app.Model" title="flexx.app.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a></p>
+<p>An item to put in a TreeWidget. TreeItem objects are Model
+objects, but do not inherit from <cite>ui.Widget</cite>.</p>
+<p>Items are collapsable/expandable if their <code class="docutils literal"><span class="pre">collapsed</span></code> property
+is set to <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code> (i.e. not <code class="docutils literal"><span class="pre">None</span></code>), or if they
+have sub items. Items are checkable if their <code class="docutils literal"><span class="pre">checked</span></code> property
+is set to <code class="docutils literal"><span class="pre">True</span></code> or <code class="docutils literal"><span class="pre">False</span></code> (i.e. not <code class="docutils literal"><span class="pre">None</span></code>). Items are
+selectable depending on the selection policy defined by
+<code class="docutils literal"><span class="pre">TreeWidget.max_selected</span></code>.</p>
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.checked">
+<code class="descname">checked</code><a class="headerlink" href="#flexx.ui.TreeItem.checked" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether this item is checked (i.e. has its checkbox set).
+The value can be None, True or False. None (the default).
+means that the item is not checkable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.collapsed">
+<code class="descname">collapsed</code><a class="headerlink" href="#flexx.ui.TreeItem.collapsed" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether this item is expanded (i.e. shows its children).
+The value can be None, True or False. None (the default)
+means that the item is not collapsable (unless it has sub items).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.items">
+<code class="descname">items</code><a class="headerlink" href="#flexx.ui.TreeItem.items" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The list of sub items.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.mouse_click">
+<code class="descname">mouse_click</code><a class="headerlink" href="#flexx.ui.TreeItem.mouse_click" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>emitter</strong> &#8211; Event emitted when the item is clicked on. Depending
+on the tree&#8217;s max_selected, this can result in the item
+being selected/deselected.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.mouse_double_click">
+<code class="descname">mouse_double_click</code><a class="headerlink" href="#flexx.ui.TreeItem.mouse_double_click" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>emitter</strong> &#8211; Event emitted when the item is double-clicked.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.selected">
+<code class="descname">selected</code><a class="headerlink" href="#flexx.ui.TreeItem.selected" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether this item is selected. Depending on the TreeWidget&#8217;s
+policy (max_selected), this can be set/unset on clicking the item.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.text">
+<code class="descname">text</code><a class="headerlink" href="#flexx.ui.TreeItem.text" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The text for this item. Can be used in combination with
+<code class="docutils literal"><span class="pre">title</span></code> to obtain two columns.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.title">
+<code class="descname">title</code><a class="headerlink" href="#flexx.ui.TreeItem.title" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The title for this item that appears before the text. Intended
+for display of key-value pairs. If a title is given, the text is
+positioned in a second (virtual) column of the tree widget.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeItem.visible">
+<code class="descname">visible</code><a class="headerlink" href="#flexx.ui.TreeItem.visible" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether this item (and its sub items) is visible.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.TreeWidget">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">TreeWidget</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.TreeWidget" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="widget.html#flexx.ui.Widget" title="flexx.ui.Widget"><code class="xref py py-class docutils literal"><span class="pre">Widget</span></code></a></p>
+<p>A Widget that can be used to structure information in a list or a tree.
+To add items, create TreeItem objects in the context of a TreeWidget.
+Sub items can be created by instantiating TreeItems in the context
+of another TreeItem.</p>
+<p>When the items in the tree have no sub items, the TreeWidget is in
+&#8220;list mode&#8221;. Otherwise, items can be collapsed/expanded etc.
+This widget can be fully styled using CSS, see below.</p>
+<p><strong>Style</strong></p>
+<p>Style classes applied to the TreeWidget:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">flx-listmode</span></code> is set on the widget&#8217;s node if no items have sub items.</li>
+</ul>
+<p>Style classes for a TreeItem&#8217;s elements:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">flx-TreeItem</span></code> indicates the row of an item (its text, icon, and checkbox).</li>
+<li><code class="docutils literal"><span class="pre">flx-TreeItem</span> <span class="pre">&gt;</span> <span class="pre">collapsebut</span></code> the element used to collapse/expand an item.</li>
+<li><code class="docutils literal"><span class="pre">flx-TreeItem</span> <span class="pre">&gt;</span> <span class="pre">checkbut</span></code> the element used to check/uncheck an item.</li>
+<li><code class="docutils literal"><span class="pre">flx-TreeItem</span> <span class="pre">&gt;</span> <span class="pre">text</span></code> the element that contains the text of the item.</li>
+<li><code class="docutils literal"><span class="pre">flx-TreeItem</span> <span class="pre">&gt;</span> <span class="pre">title</span></code> the element that contains the title of the item.</li>
+</ul>
+<p>Style classes applied to the TreeItem, corresponding to its properties:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">visible-true</span></code> and <code class="docutils literal"><span class="pre">visible-false</span></code> indicate visibility.</li>
+<li><code class="docutils literal"><span class="pre">selected-true</span></code> and <code class="docutils literal"><span class="pre">selected-false</span></code> indicate selection state.</li>
+<li><code class="docutils literal"><span class="pre">checked-true</span></code>, <code class="docutils literal"><span class="pre">checked-false</span></code> and <code class="docutils literal"><span class="pre">checked-null</span></code> indicate checked
+state, with the <code class="docutils literal"><span class="pre">null</span></code> variant indicating not-checkable.</li>
+<li><code class="docutils literal"><span class="pre">collapsed-true</span></code>, <code class="docutils literal"><span class="pre">collapsed-false</span></code> and <code class="docutils literal"><span class="pre">collapsed-null</span></code> indicate
+collapse state, with the <code class="docutils literal"><span class="pre">null</span></code> variant indicating not-collapsable.</li>
+</ul>
+<dl class="method">
+<dt id="flexx.ui.TreeWidget.get_all_items">
+<code class="descname">get_all_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.TreeWidget.get_all_items" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a flat list of all TreeItem instances in this Tree
+(including sub items and sub-sub items, etc.).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeWidget.items">
+<code class="descname">items</code><a class="headerlink" href="#flexx.ui.TreeWidget.items" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The list of (direct) TreeItem instances for this tree.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.TreeWidget.max_selected">
+<code class="descname">max_selected</code><a class="headerlink" href="#flexx.ui.TreeWidget.max_selected" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The maximum number of selected items. Default 0. Can be -1 to
+allow any number of selected items. This determines the selection
+policy.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.ui</a><ul>
+  <li><a href="api.html">Ui API</a><ul>
+      <li>Previous: <a href="slider.html" title="前の章へ">Slider</a></li>
+      <li>Next: <a href="examples.html" title="次の章へ">Ui examples</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/ui/tree.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/ui/tree.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

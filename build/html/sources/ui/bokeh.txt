@@ -1,0 +1,10 @@
+Bokeh
+-----
+
+.. automodule:: flexx.ui.widgets._bokeh
+
+----
+
+.. autoclass:: flexx.ui.BokehWidget
+ :members:
+

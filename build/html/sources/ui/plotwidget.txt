@@ -1,0 +1,10 @@
+Plotwidget
+----------
+
+.. automodule:: flexx.ui.widgets._plotwidget
+
+----
+
+.. autoclass:: flexx.ui.PlotWidget
+ :members:
+

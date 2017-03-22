@@ -1,0 +1,10 @@
+Widget
+------
+
+.. automodule:: flexx.ui._widget
+
+----
+
+.. autoclass:: flexx.ui.Widget
+ :members:
+

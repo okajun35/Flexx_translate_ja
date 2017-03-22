@@ -1,0 +1,825 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>splines.py &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <script type="text/javascript" src="../../static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="splines-py">
+<span id="id1"></span><h1>splines.py<a class="headerlink" href="#splines-py" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<a target='new' href='../../ui/examples/splines.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 300px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../../ui/examples/splines.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><div class="highlight-py"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An interactive spline demo.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">ui</span>
+<span class="kn">from</span> <span class="nn">flexx.pyscript</span> <span class="kn">import</span> <span class="n">window</span>
+
+
+<span class="n">GENERAL_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The splines in this exampe are used to interpolate a line between</span>
+<span class="s2">control points. The the range of influence is shown when a control point</span>
+<span class="s2">is clicked. Move the control points by dragging them. Points can be</span>
+<span class="s2">added and deleted by holding shift and clicking.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">LINEAR_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">This is not really a spline, but its included for reference. Linear</span>
+<span class="s2">interpolation is C0 continuous, and relatively easy to implement.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">BASIS_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">A B-spline is a C2 continuous non-interpolating spline, used extensively</span>
+<span class="s2">in (3D) modeling.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">CARDINAL_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">A Cardinal spline is a specific type of cubic Hermite spline, and is</span>
+<span class="s2">C1 continous. Its tension parameter makes it very versatile.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">CATMULLROM_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The Catmull–Rom spline is a Cardinal spline with a tension of 0. It is</span>
+<span class="s2">commonly used in computer graphics to interpolate motion between key frames.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">LAGRANGE_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The Lagrange polynomials result in (C0 continous) interpolation</span>
+<span class="s2">equivalent to Newton a polynomial. It is, however, know to suffer from</span>
+<span class="s2">Runge&#39;s phenomenon (oscilating).</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">LANCZOS_TEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Lanczos interpolation (C1 continous) is based on a windowed sinc</span>
+<span class="s2">function and is usually considered to produced the best result from the</span>
+<span class="s2">perspective of the fourier domain. It&#39;s mainly used in applications</span>
+<span class="s2">related audio.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">SplineWidget</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">CanvasWidget</span><span class="p">):</span>
+
+    <span class="k">class</span> <span class="nc">Both</span><span class="p">:</span>
+
+        <span class="n">SPLINES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;basis&#39;</span><span class="p">,</span> <span class="s1">&#39;cardinal&#39;</span><span class="p">,</span> <span class="s1">&#39;catmullrom&#39;</span><span class="p">,</span> <span class="s1">&#39;lagrange&#39;</span><span class="p">,</span> <span class="s1">&#39;lanczos&#39;</span><span class="p">]</span>
+
+        <span class="nd">@event.prop</span>
+        <span class="k">def</span> <span class="nf">spline_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="s1">&#39;Cardinal&#39;</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot; The type of spline.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPLINES</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid spline type&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">v</span>
+
+        <span class="nd">@event.prop</span>
+        <span class="k">def</span> <span class="nf">closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot; Whether the spline is closed.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="nd">@event.prop</span>
+        <span class="k">def</span> <span class="nf">tension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot; The tension parameter for the Cardinal spline.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xx</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">,</span> <span class="mf">0.61</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yy</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.60</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.19</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">]</span>
+
+        <span class="nd">@event.prop</span>
+        <span class="k">def</span> <span class="nf">_current_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">v</span>
+
+        <span class="k">def</span> <span class="nf">factors_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">),</span> <span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">factors_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mf">6.0</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="mf">6.0</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mf">6.0</span>
+            <span class="n">f3</span> <span class="o">=</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="mf">6.0</span>
+            <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span>
+
+        <span class="k">def</span> <span class="nf">factors_cardinal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="n">tension</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tension</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tension</span><span class="p">)</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">tau</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span>
+            <span class="n">f3</span> <span class="o">=</span> <span class="o">+</span> <span class="n">tau</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">f3</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">f0</span>
+            <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span>
+
+        <span class="k">def</span> <span class="nf">factors_catmullrom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span>
+            <span class="n">f3</span> <span class="o">=</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+            <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span>
+
+        <span class="k">def</span> <span class="nf">factors_lagrange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="n">t</span> <span class="o">/</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">k</span><span class="o">=</span> <span class="mi">1</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">f3</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span>
+
+        <span class="k">def</span> <span class="nf">factors_lanczos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+            <span class="n">sin</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">Math</span><span class="o">.</span><span class="n">sin</span>
+            <span class="n">pi</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">Math</span><span class="o">.</span><span class="n">PI</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+            <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">f3</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">tt</span> <span class="o">=</span> <span class="n">t</span>
+                <span class="n">f1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f1</span> <span class="o">=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span>
+                <span class="n">f2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">tt</span><span class="o">*</span><span class="n">tt</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f2</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;mouse_down&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_on_mouse_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+                <span class="c1"># Get closest point</span>
+                <span class="n">closest</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">999999</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">)):</span>
+                    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+                    <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">dist</span><span class="p">:</span>
+                        <span class="n">closest</span><span class="p">,</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span>
+                <span class="c1"># Did we touch it or not</span>
+                <span class="k">if</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">closest</span>
+                    <span class="k">if</span> <span class="s1">&#39;Shift&#39;</span> <span class="ow">in</span> <span class="n">ev</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>  <span class="c1"># Remove point</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="o">=</span> <span class="bp">None</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;Shift&#39;</span> <span class="ow">in</span> <span class="n">ev</span><span class="o">.</span><span class="n">modifiers</span><span class="p">:</span>
+                        <span class="c1"># Add point</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">:</span>
+                            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># There were no points</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="c1"># Add in between two points. Compose the vectors</span>
+                            <span class="c1"># from closest points to neightbour points and to the</span>
+                            <span class="c1"># cicked point. Check with which vector the latter vector</span>
+                            <span class="c1"># aligns the best by calculating their angles.</span>
+                            <span class="c1">#</span>
+                            <span class="c1"># Get the three points</span>
+                            <span class="n">p0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                            <span class="k">if</span> <span class="n">closest</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                                <span class="n">p1</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="k">elif</span> <span class="n">closest</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                                <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">closest</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">closest</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                                <span class="n">p2</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">closest</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">closest</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                                <span class="n">p2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">closest</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">h</span>
+                            <span class="c1"># Calculate vectors, and normalize</span>
+                            <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="n">v2</span> <span class="o">=</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="n">v3</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+                            <span class="n">m2</span> <span class="o">=</span> <span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+                            <span class="n">m3</span> <span class="o">=</span> <span class="p">(</span><span class="n">v3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+                            <span class="n">v1</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">m1</span><span class="p">,</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">m1</span>
+                            <span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">m2</span><span class="p">,</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">m2</span>
+                            <span class="n">v3</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">m3</span><span class="p">,</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">m3</span>
+                            <span class="c1"># Calculate angle</span>
+                            <span class="n">a1</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">Math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">a2</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">Math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                            <span class="n">i</span> <span class="o">=</span> <span class="n">closest</span> <span class="k">if</span> <span class="n">a1</span> <span class="o">&lt;</span> <span class="n">a2</span> <span class="k">else</span> <span class="n">closest</span> <span class="o">+</span> <span class="mi">1</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;mouse_up&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_on_mouse_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;mouse_move&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_on_mouse_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">ev</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span>
+                <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">h</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;spline_type&#39;</span><span class="p">,</span> <span class="s1">&#39;tension&#39;</span><span class="p">,</span> <span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="s1">&#39;_current_node&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+
+            <span class="c1"># Init</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctx</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+            <span class="c1"># Get coordinates</span>
+            <span class="n">xx</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">w</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xx</span><span class="p">]</span>
+            <span class="n">yy</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span> <span class="o">*</span> <span class="n">h</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">yy</span><span class="p">]</span>
+            <span class="c1">#</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                <span class="n">xx</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">xx</span> <span class="o">+</span> <span class="n">xx</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">yy</span> <span class="o">=</span> <span class="n">yy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">yy</span> <span class="o">+</span> <span class="n">yy</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xx</span> <span class="o">=</span> <span class="p">[</span><span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">xx</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">xx</span> <span class="o">+</span> <span class="p">[</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">xx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+                <span class="n">yy</span> <span class="o">=</span> <span class="p">[</span><span class="n">yy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">yy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">yy</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">+</span> <span class="n">yy</span> <span class="o">+</span> <span class="p">[</span><span class="n">yy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">yy</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">yy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+
+            <span class="c1"># Draw grid</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="s1">&#39;#eee&#39;</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+
+            <span class="c1"># Draw nodes</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="s1">&#39;#acf&#39;</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="s1">&#39;#000&#39;</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">6.2831</span><span class="p">)</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+
+            <span class="c1"># Select interpolation function</span>
+            <span class="n">fun</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;factors_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">spline_type</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fun</span><span class="p">:</span>
+                <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># Draw lines</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+
+                <span class="n">ctx</span><span class="o">.</span><span class="n">lineCap</span> <span class="o">=</span> <span class="s2">&quot;round&quot;</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">3</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="s1">&#39;#008&#39;</span>
+                <span class="n">support</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spline_type</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span> <span class="k">else</span> <span class="mi">2</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">-</span> <span class="p">(</span><span class="n">support</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_node</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="n">support</span><span class="p">:</span>
+                        <span class="n">ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="s1">&#39;#08F&#39;</span>
+                        <span class="n">ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="mi">5</span>
+
+                <span class="c1"># Get coordinates of the four points</span>
+                <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">0</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">xx</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">],</span> <span class="n">yy</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="c1"># Interpolate</span>
+                <span class="n">ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+                <span class="c1"># lineto = ctx.moveTo.bind(ctx)</span>
+                <span class="n">lineto</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">lineTo</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="n">n</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]:</span>
+                    <span class="n">f0</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">*</span> <span class="n">f0</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">f1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">*</span> <span class="n">f2</span> <span class="o">+</span> <span class="n">x3</span> <span class="o">*</span> <span class="n">f3</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">*</span> <span class="n">f0</span> <span class="o">+</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">f1</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">*</span> <span class="n">f2</span> <span class="o">+</span> <span class="n">y3</span> <span class="o">*</span> <span class="n">f3</span>
+
+                    <span class="n">lineto</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                    <span class="n">lineto</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">lineTo</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+                <span class="n">ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">Splines</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">():</span>
+
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">VBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Linear&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Basis&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Cardinal&#39;</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b4</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Catmull Rom&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b5</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Lagrange&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b6</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">RadioButton</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Lanczos&#39;</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;min-height:10px&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">closed</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">CheckBox</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Closed&#39;</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;min-height:10px&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tension_label</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Tension: 0.5&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tension</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Slider</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">VBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">GENERAL_TEXT</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;font-size: 12px;&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">explanation</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">CARDINAL_TEXT</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                            <span class="n">style</span><span class="o">=</span><span class="s1">&#39;font-size: 12px;&#39;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">spline</span> <span class="o">=</span> <span class="n">SplineWidget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="n">LINEAR_TEXT</span> <span class="o">=</span> <span class="n">LINEAR_TEXT</span>
+        <span class="n">BASIS_TEXT</span> <span class="o">=</span> <span class="n">BASIS_TEXT</span>
+        <span class="n">CARDINAL_TEXT</span> <span class="o">=</span> <span class="n">CARDINAL_TEXT</span>
+        <span class="n">CATMULLROM_TEXT</span> <span class="o">=</span> <span class="n">CATMULLROM_TEXT</span>
+        <span class="n">LAGRANGE_TEXT</span> <span class="o">=</span> <span class="n">LAGRANGE_TEXT</span>
+        <span class="n">LANCZOS_TEXT</span> <span class="o">=</span> <span class="n">LANCZOS_TEXT</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;b1.checked&#39;</span><span class="p">,</span> <span class="s1">&#39;b2.checked&#39;</span><span class="p">,</span> <span class="s1">&#39;b3.checked&#39;</span><span class="p">,</span> <span class="s1">&#39;b4.checked&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;b5.checked&#39;</span><span class="p">,</span> <span class="s1">&#39;b6.checked&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_set_spline_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">ev</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spline</span><span class="o">.</span><span class="n">spline_type</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">text</span>
+            <span class="nb">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spline</span><span class="o">.</span><span class="n">spline_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">explanation</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="nb">type</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;_TEXT&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;cardinal&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tension</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tension_label</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;visibility: visible&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tension</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tension_label</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;visibility: hidden&#39;</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;tension.value&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_set_tension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tension</span><span class="o">.</span><span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tension_label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Tension: &#39;</span> <span class="o">+</span> <span class="n">t</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spline</span><span class="o">.</span><span class="n">tension</span> <span class="o">=</span> <span class="n">t</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;closed.checked&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_set_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spline</span><span class="o">.</span><span class="n">closed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">closed</span><span class="o">.</span><span class="n">checked</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">Splines</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../sources/ui/examples/splines_src.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../../sources/ui/examples/splines_src.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

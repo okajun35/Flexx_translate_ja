@@ -1,0 +1,28 @@
+Box
+---
+
+.. automodule:: flexx.ui.layouts._box
+
+----
+
+.. autoclass:: flexx.ui.layouts._box.BaseBoxLayout
+ :members:
+
+.. autoclass:: flexx.ui.BoxLayout
+ :members:
+
+.. autoclass:: flexx.ui.BoxPanel
+ :members:
+
+.. autoclass:: flexx.ui.HBox
+ :members:
+
+.. autoclass:: flexx.ui.HBoxPanel
+ :members:
+
+.. autoclass:: flexx.ui.VBox
+ :members:
+
+.. autoclass:: flexx.ui.VBoxPanel
+ :members:
+

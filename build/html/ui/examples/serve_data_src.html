@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>serve_data.py &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <script type="text/javascript" src="../../static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="serve-data-py">
+<span id="id1"></span><h1>serve_data.py<a class="headerlink" href="#serve-data-py" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<a target='new' href='../../ui/examples/serve_data.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 300px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../../ui/examples/serve_data.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><div class="highlight-py"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This example demonstrates how data can be provided to the client with the</span>
+<span class="sd">Flexx asset management system.</span>
+
+<span class="sd">There are two ways to provide data: via the asset store (``app.assets``),</span>
+<span class="sd">and via the session (``some_model.session``). In the former, the data</span>
+<span class="sd">is shared between sessions. In the latter, the data is specific for the</span>
+<span class="sd">session (the link to the data includes the session id).</span>
+
+<span class="sd">Note that ``add_shared_data()`` and ``add_data()`` both return the link</span>
+<span class="sd">to the data for convenience. Shared data is served at</span>
+<span class="sd">&#39;/flexx/data/shared/filename.ext&#39;, though one can also use the relative path</span>
+<span class="sd">&#39;_data/shared/filename.ext&#39;, which also works for exported apps.</span>
+
+<span class="sd">Similarly, the data provided by the server can be obtained using Ajax</span>
+<span class="sd">(i.e. XMLHttpRequest).</span>
+
+<span class="sd">Note that this example will only load random images if its live (i.e.</span>
+<span class="sd">not exported).</span>
+
+<span class="sd">See video_viewer.py for an example on providing data without reading it</span>
+<span class="sd">in memory, and send_data.py for one-shot sending of data from Python to JS.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">ui</span>
+
+
+<span class="c1"># Define names of standard images</span>
+<span class="n">image_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;clock.png&#39;</span><span class="p">,</span> <span class="s1">&#39;page.png&#39;</span><span class="p">,</span> <span class="s1">&#39;camera.png&#39;</span><span class="p">,</span> <span class="s1">&#39;coins.png&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;hubble_deep_field.png&#39;</span><span class="p">,</span> <span class="s1">&#39;text.png&#39;</span><span class="p">,</span> <span class="s1">&#39;chelsea.png&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;coffee.png&#39;</span><span class="p">,</span> <span class="s1">&#39;horse.png&#39;</span><span class="p">,</span> <span class="s1">&#39;wikkie.png&#39;</span><span class="p">,</span> <span class="s1">&#39;moon.png&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;astronaut.png&#39;</span><span class="p">,</span> <span class="s1">&#39;immunohistochemistry.png&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">get_img_blob</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given an image name, download the raw bytes from imageio&#39;s repository</span>
+<span class="sd">    of standard images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url_root</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/imageio/imageio-binaries/raw/master/images/&#39;</span>
+    <span class="k">return</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url_root</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+
+<span class="c1"># Randomly select a shared image</span>
+<span class="n">app</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">add_shared_data</span><span class="p">(</span><span class="s1">&#39;image.png&#39;</span><span class="p">,</span> <span class="n">get_img_blob</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">image_names</span><span class="p">)))</span>
+
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Randomly select image - different between sessions</span>
+        <span class="n">link</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="s1">&#39;image.png&#39;</span><span class="p">,</span>
+                                     <span class="n">get_img_blob</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">image_names</span><span class="p">)))</span>
+
+        <span class="c1"># Create HTML with the two images</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;p&gt;Hit F5 to reload the page (i.e. create a new session&#39;</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;, unless this is an exported app)&lt;/p&gt;&#39;</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;p&gt;This is session &quot;</span><span class="si">%s</span><span class="s1">&quot;&lt;/p&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;img src=&quot;</span><span class="si">%s</span><span class="s1">&quot; /&gt;&#39;</span> <span class="o">%</span> <span class="s2">&quot;_data/shared/image.png&quot;</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">&#39;&lt;img src=&quot;</span><span class="si">%s</span><span class="s1">&quot; /&gt;&#39;</span> <span class="o">%</span> <span class="n">link</span>
+
+        <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">html</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Launch the app twice to show how different sessions have different data</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">App</span><span class="p">(</span><span class="n">Example</span><span class="p">)</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="s1">&#39;browser&#39;</span><span class="p">)</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="s1">&#39;browser&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../sources/ui/examples/serve_data_src.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../../sources/ui/examples/serve_data_src.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

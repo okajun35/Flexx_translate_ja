@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Reference for flexx.webruntime &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="next" title="Reference for flexx.dialite" href="../dialite/index.html" />
+    <link rel="prev" title="PyScript examples" href="../pyscript/examples.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="reference-for-flexx-webruntime">
+<h1>Reference for flexx.webruntime<a class="headerlink" href="#reference-for-flexx-webruntime" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="module-flexx.webruntime">
+<span id="webruntime-introduction"></span><h2>Webruntime introduction<a class="headerlink" href="#module-flexx.webruntime" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The webruntime module can be used to launch a runtime for applications
+based on HTML/JS/CSS. This can be a browser or something that looks like
+a desktop app.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="webruntime-api">
+<h2>Webruntime API<a class="headerlink" href="#webruntime-api" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="function">
+<dt id="flexx.webruntime.launch">
+<code class="descclassname">flexx.webruntime.</code><code class="descname">launch</code><span class="sig-paren">(</span><em>url</em>, <em>runtime=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.launch" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Launch a web runtime in a new process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; The url to open, e.g. <code class="docutils literal"><span class="pre">'http://python.org'</span></code>. To open a
+local file use <code class="docutils literal"><span class="pre">'file://...'</span></code>.</li>
+<li><strong>runtime</strong> (<em>str</em>) &#8211; The runtime(s) to use. E.g. &#8216;app&#8217; will open in a
+desktop-app-like runtime, &#8216;browser&#8217; in a browser runtime. One can
+target specific runtimes, e.g. &#8216;nw-app&#8217; or &#8216;edge-browser&#8217;, or
+a selection, e.g. &#8216;chrome-browser or firefox-browser&#8217;. If not given
+uses the value of <code class="docutils literal"><span class="pre">flexx.config.webruntime</span></code>, which defaults to
+<code class="docutils literal"><span class="pre">'app</span> <span class="pre">or</span> <span class="pre">browser'</span></code>.
+See below for more information on available runtimes.</li>
+<li><strong>kwargs</strong> &#8211; addition arguments specific to the runtime. See the
+docs of the runtime classes.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first"><strong>runtime</strong> &#8211; An object that represents the runtime. For
+Desktop runtimes it can be used to close the runtime.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#flexx.webruntime.BaseRuntime" title="flexx.webruntime.BaseRuntime">BaseRuntime</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Browser runtimes:</p>
+<ul class="simple">
+<li>browser: open in a browser. Firefox, Chrome and Edge are prefered over
+the default browser.</li>
+<li>default-browser: open in the system default browser.</li>
+<li>firefox-browser: open in Firefox browser.</li>
+<li>chrome-browser: open in Chrome/Chromium browser.</li>
+<li>googlechrome-browser or chromium-browser: like chrome-browser, but specific.</li>
+<li>edge-browser: open in Microsoft Edge browser.</li>
+<li>ie-browser: open in Microsoft Internet Explorer browser.</li>
+<li>xx-browser: use webbrowser module to open in browser &#8220;xx&#8221;.</li>
+</ul>
+<p>App runtimes:</p>
+<ul class="simple">
+<li>app: open as desktop app, using firefox-app or nw-app
+(and chrome-app on Windows).</li>
+<li>firerox-app: open as desktop app, using Firefox&#8217; app framework (Xul).</li>
+<li>nw-app: open as desktop app using NW.js.</li>
+<li>chrome-app: open as desktop-like app via Chrome/Chromium (only works well
+on Windows).</li>
+<li>pyqt-app: open as desktop-like app using PyQt/PySide.</li>
+</ul>
+<p>The most developed app runtimes are Firefox and NW. The former requires
+the user to have Firefox installed. The latter can be installed by the user
+simply by downloading the archive. Firefox is lighter (memory-wise), while
+NW is based on Chromium, making it heavier, but generally faster. The other
+app runtimes are useful for testing or development, but should generally be
+avoided when distributing apps.</p>
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="class">
+<dt id="flexx.webruntime.BaseRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">BaseRuntime</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Base class for all runtimes.</p>
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.close" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Close the runtime, or kill it if the process does not
+respond. Note that closing only works for runtimes launched as
+an app (using <code class="docutils literal"><span class="pre">launch_app()</span></code>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.get_exe">
+<code class="descname">get_exe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.get_exe" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the executable corresponding to the runtime. This is usually
+the path to an executable file, but it can also be a command, or even
+a stub. Can be None if the runtime is not (yet) installed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.get_install_instuctions">
+<code class="descname">get_install_instuctions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.get_install_instuctions" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get instructions on how a runtime can be installed. Used internally
+to show useful dialogs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.get_name" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the name of the runtime.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.get_version">
+<code class="descname">get_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.get_version" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the version of the available runtime (as a string). Can be None
+if the version cannot be retrieved (e.g. for Edge and IE), or if the
+runtime is not available on this system.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.is_available">
+<code class="descname">is_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.is_available" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get whether this runtime appears to be available on this machine.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.launch_app">
+<code class="descname">launch_app</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.launch_app" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Launch the given url as a desktop application. Only works for
+runtimes that derive from DeskopRuntime (e.g. not Edge). Apps launched
+this way can usually be terminated using the <code class="docutils literal"><span class="pre">close()</span></code> method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.BaseRuntime.launch_tab">
+<code class="descname">launch_tab</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BaseRuntime.launch_tab" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Launch the given url in a new browser tab. Only works for runtimes
+that are browsers (e.g. not NW).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.DesktopRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">DesktopRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.DesktopRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>A base class for runtimes that launch a desktop-like app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) &#8211; Text shown in the title bar.</li>
+<li><strong>icon</strong> (<em>str | Icon</em>) &#8211; Icon instance or path to an icon file (png or ico).
+The icon will automatically be converted to png/ico/icns,
+depending on what&#8217;s needed by the runtime and platform.</li>
+<li><strong>size</strong> (<em>tuple of ints</em>) &#8211; The size (in pixels) of the window.</li>
+<li><strong>pos</strong> (<em>tuple of ints</em>) &#8211; The position (in pixels) of the window.</li>
+<li><strong>windowmode</strong> (<em>str</em>) &#8211; the initial window mode, e.g. &#8216;normal&#8217;, &#8216;maximized&#8217;,
+&#8216;fullscreen&#8217;, &#8216;kiosk&#8217;. Note that not all modes are supported by all
+runtimes.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="flexx.webruntime.DesktopRuntime.get_cached_version">
+<code class="descname">get_cached_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.DesktopRuntime.get_cached_version" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get (version, path) for the (highest) version of this runtime that
+we currently have locally installed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.DesktopRuntime.get_frozen_version">
+<code class="descname">get_frozen_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.DesktopRuntime.get_frozen_version" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get (version, path) for the (highest) version of this runtime that
+is shipped along with the executable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.DesktopRuntime.get_runtime_dir">
+<code class="descname">get_runtime_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.DesktopRuntime.get_runtime_dir" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the directory of the (up-to-date) local version of the runtime.
+If necessary, the runtime is cached/installed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.webruntime.DesktopRuntime.get_system_version">
+<code class="descname">get_system_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.DesktopRuntime.get_system_version" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get (version, path) for the version of the runtime available
+on the system. Can be an application, but also an archive or installer.
+This information is used internally to install or update a runtime.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.FirefoxRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">FirefoxRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.FirefoxRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on Mozilla Firefox. Can be used to open an app in
+Firefox, as well as launch desktop-like apps via Mozilla&#8217;s XUL framework.
+Available if Firefox is installed.</p>
+<p>This runtime is visible in the task manager under a custom process name
+(<code class="docutils literal"><span class="pre">sys.executable</span> <span class="pre">+</span> <span class="pre">'-ui'</span></code>), making it easy to spot in the task manager,
+and avoids task-bar grouping. Compared to the NW runtime, this runtime
+is leaner in terms of memory and number of processes.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.NWRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">NWRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.NWRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Desktop runtime based on NW.js (<a class="reference external" href="http://nwjs.io">http://nwjs.io</a>, formerly
+node-webkit), which uses the Chromium engine. Flexx will install/update the
+runtime if it finds a suitable archive in a few common locations like
+the desktop, download dir and temp dir. That way, the end-user only
+has to download the archive to make this runtime work.</p>
+<p>This runtime is visible in the task manager under a custom process name
+(<code class="docutils literal"><span class="pre">sys.executable</span> <span class="pre">+</span> <span class="pre">'-ui'</span></code>), making it easy to spot in the task manager,
+and avoids task-bar grouping. Compared to the Firefox app runtime,
+this runtime uses more processes and memory, but is generally faster.</p>
+<p>The supported <code class="docutils literal"><span class="pre">windowmode</span></code> values are &#8216;normal&#8217;, &#8216;fullscreen&#8217;,
+&#8216;kiosk&#8217; (&#8216;maximized&#8217; is ignored).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.PyQtRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">PyQtRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.PyQtRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Desktop runtime based on qt-webkit. Launches a new Python
+process (the same version as the current), and uses PyQt4, PyQt5 or PySide
+to display the page.</p>
+<p>This runtime is not suited for hosting apps created with flexx.ui; it is
+included for completeness but should generally be avoided.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.ChromeRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">ChromeRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.ChromeRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime representing either the Google Chrome or Chromium browser.
+This runtime does support desktop-like apps, which works pretty well on
+Windows, but not so much on OS X and Linux:</p>
+<ul class="simple">
+<li>On Linux it has the Chrome/Chromium icon.</li>
+<li>On OSX and Linux it groups with the Chrome/Chromium browser.</li>
+<li>Fullscreen mode does not work on OS X.</li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.GoogleChromeRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">GoogleChromeRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.GoogleChromeRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on the Google Chrome browser. Derives from ChromeRuntime.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.ChromiumRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">ChromiumRuntime</code><span class="sig-paren">(</span><em>icon=None</em>, <em>title=None</em>, <em>size=None</em>, <em>pos=None</em>, <em>windowmode=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.ChromiumRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on the Chromium browser. Derives from ChromeRuntime.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.EdgeRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">EdgeRuntime</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.EdgeRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on Edge, only for launching in the browser.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.IERuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">IERuntime</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.IERuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on IE (Internet Explorer), only for launching in
+the browser.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.webruntime.BrowserRuntime">
+<em class="property">class </em><code class="descclassname">flexx.webruntime.</code><code class="descname">BrowserRuntime</code><span class="sig-paren">(</span><em>type=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.webruntime.BrowserRuntime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Runtime based on the Python webbrowser module. This runtime is used
+to open a url in the system default browser, and to attempt to handle a
+given browser name that is unknown to Flexx (maybe the webbrowser module
+knows it).</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Reference for flexx.webruntime</a><ul>
+<li><a class="reference internal" href="#module-flexx.webruntime">Webruntime introduction</a></li>
+<li><a class="reference internal" href="#webruntime-api">Webruntime API</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../pyscript/examples.html" title="前の章へ">PyScript examples</a></li>
+      <li>Next: <a href="../dialite/index.html" title="次の章へ">Reference for flexx.dialite</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/webruntime/index.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/webruntime/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,10 @@
+Iframe
+------
+
+.. automodule:: flexx.ui.widgets._iframe
+
+----
+
+.. autoclass:: flexx.ui.IFrame
+ :members:
+

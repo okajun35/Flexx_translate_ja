@@ -1,0 +1,10 @@
+Plotlayout
+----------
+
+.. automodule:: flexx.ui._plotlayout
+
+----
+
+.. autoclass:: flexx.ui.PlotLayout
+ :members:
+

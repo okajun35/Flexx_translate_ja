@@ -1,0 +1,13 @@
+Tree
+----
+
+.. automodule:: flexx.ui.widgets._tree
+
+----
+
+.. autoclass:: flexx.ui.TreeItem
+ :members:
+
+.. autoclass:: flexx.ui.TreeWidget
+ :members:
+

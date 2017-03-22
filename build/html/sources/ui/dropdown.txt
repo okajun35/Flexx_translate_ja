@@ -1,0 +1,16 @@
+Dropdown
+--------
+
+.. automodule:: flexx.ui.widgets._dropdown
+
+----
+
+.. autoclass:: flexx.ui.widgets._dropdown.BaseDropdown
+ :members:
+
+.. autoclass:: flexx.ui.ComboBox
+ :members:
+
+.. autoclass:: flexx.ui.DropdownContainer
+ :members:
+

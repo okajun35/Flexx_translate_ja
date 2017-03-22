@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Split &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Ui API" href="api.html" />
+    <link rel="next" title="Stack" href="stack.html" />
+    <link rel="prev" title="Pinboard" href="pinboard.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.ui.layouts._split">
+<span id="split"></span><h1>Split<a class="headerlink" href="#module-flexx.ui.layouts._split" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>The splitter layout classes provide a mechanism to horizontally
+or vertically stack child widgets, where the available space can be
+manually specified by the user.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">SplitPanel</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">):</span>
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;background:#f77;&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">SplitPanel</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">):</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;background:#7f7;&#39;</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;background:#77f&#39;</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;background:#f7f;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/examplecaafb12f38620b7e5991df64412b4198.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 200px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/examplecaafb12f38620b7e5991df64412b4198.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><hr class="docutils" />
+<dl class="class">
+<dt id="flexx.ui.SplitPanel">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">SplitPanel</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.SplitPanel" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="layout.html#flexx.ui.Layout" title="flexx.ui.Layout"><code class="xref py py-class docutils literal"><span class="pre">Layout</span></code></a></p>
+<p>Layout to split space for widgets horizontally or vertically.</p>
+<p>The Splitter layout divides the available space among its child
+widgets in a similar way that Box does, except that the
+user can divide the space by dragging the divider in between the
+widgets.</p>
+<dl class="attribute">
+<dt id="flexx.ui.SplitPanel.orientation">
+<code class="descname">orientation</code><a class="headerlink" href="#flexx.ui.SplitPanel.orientation" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The orientation of the child widgets. &#8216;h&#8217; or &#8216;v&#8217;. Default
+horizontal.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.ui</a><ul>
+  <li><a href="api.html">Ui API</a><ul>
+      <li>Previous: <a href="pinboard.html" title="前の章へ">Pinboard</a></li>
+      <li>Next: <a href="stack.html" title="次の章へ">Stack</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/ui/split.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/ui/split.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

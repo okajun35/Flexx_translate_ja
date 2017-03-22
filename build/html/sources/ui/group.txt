@@ -1,0 +1,10 @@
+Group
+-----
+
+.. automodule:: flexx.ui.widgets._group
+
+----
+
+.. autoclass:: flexx.ui.GroupWidget
+ :members:
+

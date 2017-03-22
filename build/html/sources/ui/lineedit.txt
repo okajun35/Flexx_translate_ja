@@ -1,0 +1,10 @@
+Lineedit
+--------
+
+.. automodule:: flexx.ui.widgets._lineedit
+
+----
+
+.. autoclass:: flexx.ui.LineEdit
+ :members:
+

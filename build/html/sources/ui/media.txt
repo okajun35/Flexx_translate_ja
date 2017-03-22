@@ -1,0 +1,16 @@
+Media
+-----
+
+.. automodule:: flexx.ui.widgets._media
+
+----
+
+.. autoclass:: flexx.ui.ImageWidget
+ :members:
+
+.. autoclass:: flexx.ui.VideoWidget
+ :members:
+
+.. autoclass:: flexx.ui.YoutubeWidget
+ :members:
+

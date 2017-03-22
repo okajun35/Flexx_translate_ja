@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Event system introduction &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Reference for flexx.event" href="index.html" />
+    <link rel="next" title="Event API" href="api.html" />
+    <link rel="prev" title="Reference for flexx.event" href="index.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.event">
+<span id="event-system-introduction"></span><h1>Event system introduction<a class="headerlink" href="#module-flexx.event" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>The event module provides a simple system for properties and events,
+to let different components of an application react to each-other and
+to user input.</p>
+<p>In short:</p>
+<ul class="simple">
+<li>The <a class="reference internal" href="api.html#flexx.event.HasEvents" title="flexx.event.HasEvents"><code class="xref py py-class docutils literal"><span class="pre">HasEvents</span></code></a> class provides objects
+that have properties and can emit events.</li>
+<li>There are three decorators to create <a class="reference internal" href="api.html#flexx.event.prop" title="flexx.event.prop"><code class="xref py py-func docutils literal"><span class="pre">properties</span></code></a>,
+<a class="reference internal" href="api.html#flexx.event.readonly" title="flexx.event.readonly"><code class="xref py py-func docutils literal"><span class="pre">readonlies</span></code></a> and
+<a class="reference internal" href="api.html#flexx.event.emitter" title="flexx.event.emitter"><code class="xref py py-func docutils literal"><span class="pre">emitters</span></code></a>.</li>
+<li>There is a decorator to <a class="reference internal" href="api.html#flexx.event.connect" title="flexx.event.connect"><code class="xref py py-func docutils literal"><span class="pre">connect</span></code></a> a method
+to an event.</li>
+</ul>
+<div class="section" id="event">
+<h2>Event<a class="headerlink" href="#event" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>An event is something that has occurred at a certain moment in time,
+such as the mouse being pressed down or a property changing its value.
+In this framework events are represented with dictionary objects that
+provide information about the event (such as what button was pressed,
+or the old and new value of a property). A custom <a class="reference internal" href="api.html#flexx.event.Dict" title="flexx.event.Dict"><code class="xref py py-class docutils literal"><span class="pre">Dict</span></code></a>
+class is used that inherits from <code class="docutils literal"><span class="pre">dict</span></code> but allows attribute access,
+e.g. <code class="docutils literal"><span class="pre">ev.button</span></code> as an alternative to <code class="docutils literal"><span class="pre">ev['button']</span></code>.</p>
+</div>
+<div class="section" id="the-hasevents-class">
+<h2>The HasEvents class<a class="headerlink" href="#the-hasevents-class" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The <a class="reference internal" href="api.html#flexx.event.HasEvents" title="flexx.event.HasEvents"><code class="xref py py-class docutils literal"><span class="pre">HasEvents</span></code></a> class provides a base
+class for objects that have properties and/or emit events. E.g. a
+<code class="docutils literal"><span class="pre">flexx.ui.Widget</span></code> inherits from <code class="docutils literal"><span class="pre">flexx.app.Model</span></code>, which inherits
+from <code class="docutils literal"><span class="pre">flexx.event.HasEvents</span></code>.</p>
+<p>Events are emitted using the <a class="reference internal" href="api.html#flexx.event.HasEvents.emit" title="flexx.event.HasEvents.emit"><code class="xref py py-func docutils literal"><span class="pre">emit()</span></code></a>
+method, which accepts a name for the type of the event, and optionally a dict,
+e.g. <code class="docutils literal"><span class="pre">emitter.emit('mouse_down',</span> <span class="pre">dict(button=1,</span> <span class="pre">x=103,</span> <span class="pre">y=211))</span></code>.</p>
+<p>The HasEvents object will add two attributes to the event: <code class="docutils literal"><span class="pre">source</span></code>,
+a reference to the HasEvents object itself, and <code class="docutils literal"><span class="pre">type</span></code>, a string
+indicating the type of the event.</p>
+<p>As a user, you generally do not need to emit events explicitly; events are
+automatically emitted, e.g. when setting a property.</p>
+</div>
+<div class="section" id="handler">
+<h2>Handler<a class="headerlink" href="#handler" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>A handler is an object that can handle events. Handlers can be created
+using the <a class="reference internal" href="api.html#flexx.event.connect" title="flexx.event.connect"><code class="xref py py-func docutils literal"><span class="pre">connect</span></code></a> decorator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">event</span>
+
+<span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handle_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+
+<span class="n">ob</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">()</span>
+<span class="n">ob</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># will invoke handle_foo()</span>
+</pre></div>
+</div>
+<p>This example demonstrates a few concepts. Firstly, the handler is
+connected via a <em>connection-string</em> that specifies the type of the
+event; in this case the handler is connected to the event-type &#8220;foo&#8221;
+of the object. This connection-string can also be a path, e.g.
+&#8220;sub.subsub.event_type&#8221;. This allows for some powerful mechanics, as
+discussed in the section on dynamism.</p>
+<p>One can also see that the handler function accepts <code class="docutils literal"><span class="pre">*events</span></code> argument.
+This is because handlers can be passed zero or more events. If a handler
+is called manually (e.g. <code class="docutils literal"><span class="pre">ob.handle_foo()</span></code>) it will have zero events.
+When called by the event system, it will have at least 1 event. When
+e.g. a property is set twice, the handler function is called
+just once, with multiple events, in the next event loop iteration. It
+is up to the programmer to determine whether only one action is
+required, or whether all events need processing. In the latter case,
+just use <code class="docutils literal"><span class="pre">for</span> <span class="pre">ev</span> <span class="pre">in</span> <span class="pre">events:</span> <span class="pre">...</span></code>.</p>
+<p>In most cases, you will connect to events that are known beforehand,
+like those they correspond to properties, readonlies and emitters.
+If you connect to an event that is not known (as in the example above)
+it might be a typo and Flexx will display a warning. Use <cite>&#8216;!foo&#8217;</cite> as a
+connection string (i.e. prepend an exclamation mark) to suppress such
+warnings.</p>
+<p>Another useful feature of the event system is that a handler can connect to
+multiple events at once:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handle_foo_and_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create a handler from a normal function, use the
+<a class="reference internal" href="api.html#flexx.event.HasEvents.connect" title="flexx.event.HasEvents.connect"><code class="xref py py-func docutils literal"><span class="pre">HasEvents.connect()</span></code></a> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">()</span>
+
+<span class="c1"># Using a decorator</span>
+<span class="nd">@h.connect</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handle_func1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+
+<span class="c1"># Explicit notation</span>
+<span class="k">def</span> <span class="nf">handle_func2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="n">h</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">handle_func2</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="event-emitters">
+<h2>Event emitters<a class="headerlink" href="#event-emitters" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Apart from using <a class="reference internal" href="api.html#flexx.event.HasEvents.emit" title="flexx.event.HasEvents.emit"><code class="xref py py-func docutils literal"><span class="pre">emit()</span></code></a> there are
+certain attributes of <code class="docutils literal"><span class="pre">HasEvents</span></code> instances that generate events.</p>
+<div class="section" id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Settable properties can be created easiliy using the
+<a class="reference internal" href="api.html#flexx.event.prop" title="flexx.event.prop"><code class="xref py py-func docutils literal"><span class="pre">prop</span></code></a> decorator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.prop</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; This is a float indicating bla bla ...</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function that is decorated is essentially the setter function, and
+should have one argument (the new value for the property), which can
+have a default value (representing the initial value). The function
+body is used to validate and normalize the provided input. In this case
+the input is simply cast to a float. The docstring of the function will
+be the docstring of the property (e.g. for Sphynx docs).</p>
+<p>An alternative initial value for a property can be provided upon instantiation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">MyObject</span><span class="p">(</span><span class="n">foo</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="readonly">
+<h3>Readonly<a class="headerlink" href="#readonly" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Readonly properties are created with the
+<a class="reference internal" href="api.html#flexx.event.readonly" title="flexx.event.readonly"><code class="xref py py-func docutils literal"><span class="pre">readonly</span></code></a> decorator. The value of a
+readonly property can be set internally using the
+<a class="reference internal" href="api.html#flexx.event.HasEvents._set_prop" title="flexx.event.HasEvents._set_prop"><code class="xref py py-func docutils literal"><span class="pre">_set_prop()</span></code></a> method:.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.readonly</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; This is a float indicating bla.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_somewhere</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_prop</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="emitter">
+<h3>Emitter<a class="headerlink" href="#emitter" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Emitter attributes make it easy to generate events, and function as a
+placeholder to document events on a class. They are created with the
+<a class="reference internal" href="api.html#flexx.event.emitter" title="flexx.event.emitter"><code class="xref py py-func docutils literal"><span class="pre">emitter</span></code></a> decorator.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.emitter</span>
+    <span class="k">def</span> <span class="nf">mouse_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">js_event</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; Event emitted when the mouse is pressed down.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">button</span><span class="o">=</span><span class="n">js_event</span><span class="o">.</span><span class="n">button</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Emitters can have any number of arguments and should return a dictionary,
+which will get emitted as an event, with the event type matching the name
+of the emitter.</p>
+</div>
+</div>
+<div class="section" id="connection-string-syntax">
+<h2>Connection string syntax<a class="headerlink" href="#connection-string-syntax" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>The strings used to connect events follow a few simple syntax rules:</p>
+<ul class="simple">
+<li>Connection strings consist of parts separated by dots, thus forming a path.
+If an element on the path is a property, the connection will automatically
+reset when that property changes (a.k.a. dynamism, more on this below).</li>
+<li>Each part can end with one star (&#8216;*&#8217;), indicating that the part is a list
+and that a connection should be made for each item in the list.</li>
+<li>With two stars, the connection is made <em>recursively</em>, e.g. &#8220;children**&#8221;
+connects to &#8220;children&#8221; and the children&#8217;s children, etc.</li>
+<li>Stripped of &#8216;*&#8217;, each part must be a valid identifier (ASCII).</li>
+<li>The total string optionally has a label suffix separated by a colon. The
+label itself may consist of any chars.</li>
+<li>The string can have a &#8221;!&#8221; at the very start to suppress warnings for
+connections to event types that Flexx is not aware of at initialization
+time (i.e. not corresponding to a property or emitter).</li>
+</ul>
+<p>An extreme example could be <code class="docutils literal"><span class="pre">&quot;!foo.children**.text:mylabel&quot;</span></code>, which connects
+to the &#8220;text&#8221; event of the children (and their children, and their children&#8217;s
+children etc.) of the <code class="docutils literal"><span class="pre">foo</span></code> attribute. The &#8221;!&#8221; is common in cases like
+this to suppress warnings if not all children have a <code class="docutils literal"><span class="pre">text</span></code> event/property.</p>
+<div class="section" id="labels">
+<h3>Labels<a class="headerlink" href="#labels" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Labels are a feature that makes it possible to infuence the order by
+which event handlers are called, and provide a means to disconnect
+specific (groups of) handlers. The label is part of the connection
+string: &#8216;foo.bar:label&#8217;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyObject</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">HasEvents</span><span class="p">):</span>
+
+    <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">given_foo_handler</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="o">...</span>
+
+    <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;foo:aa&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">my_foo_handler</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="c1"># This one is called first: &#39;aa&#39; &lt; &#39;given_f...&#39;</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>When an event is emitted, the event is added to the pending events of
+the handlers in the order of a key, which is the label if present, and
+otherwise the name of the handler. Note that this does not guarantee
+the order in case a handler has multiple connections: a handler can be
+scheduled to handle its events due to another event, and a handler
+always handles all its pending events at once.</p>
+<p>The label can also be used in the
+<a class="reference internal" href="api.html#flexx.event.HasEvents.disconnect" title="flexx.event.HasEvents.disconnect"><code class="xref py py-func docutils literal"><span class="pre">disconnect()</span></code></a> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@h.connect</span><span class="p">(</span><span class="s1">&#39;foo:mylabel&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">handle_foo</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="o">...</span>
+
+<span class="n">h</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="s1">&#39;foo:mylabel&#39;</span><span class="p">)</span>  <span class="c1"># don&#39;t need reference to handle_foo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dynamism">
+<h3>Dynamism<a class="headerlink" href="#dynamism" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Dynamism is a concept that allows one to connect to events for which
+the source can change. For the following example, assume that <code class="docutils literal"><span class="pre">Node</span></code>
+is a <code class="docutils literal"><span class="pre">HasEvents</span></code> subclass that has properties <code class="docutils literal"><span class="pre">parent</span></code> and
+<code class="docutils literal"><span class="pre">children</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">main</span> <span class="o">=</span> <span class="n">Node</span><span class="p">()</span>
+<span class="n">main</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">Node</span><span class="p">()</span>
+<span class="n">main</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(),</span> <span class="n">Node</span><span class="p">()</span>
+
+<span class="nd">@main.connect</span><span class="p">(</span><span class="s1">&#39;parent.foo&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">parent_foo_handler</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="nd">@main.connect</span><span class="p">(</span><span class="s1">&#39;children*.foo&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">children_foo_handler</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">parent_foo_handler</span></code> gets invoked when the &#8220;foo&#8221; event gets
+emitted on the parent of main. Similarly, the <code class="docutils literal"><span class="pre">children_foo_handler</span></code>
+gets invoked when any of the children emits its &#8220;foo&#8221; event. Note that
+in some cases you might also want to connect to changes of the <code class="docutils literal"><span class="pre">parent</span></code>
+or <code class="docutils literal"><span class="pre">children</span></code> property itself.</p>
+<p>The event system automatically reconnects handlers when necessary. This
+concept makes it very easy to connect to the right events without the
+need for a lot of boilerplate code.</p>
+<p>Note that the above example would also work if <code class="docutils literal"><span class="pre">parent</span></code> would be a
+regular attribute instead of a property, but the handler would not be
+automatically reconnected when it changed.</p>
+</div>
+</div>
+<div class="section" id="patterns">
+<h2>Patterns<a class="headerlink" href="#patterns" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>This event system is quite flexible and designed to cover the needs
+of a variety of event/messaging mechanisms. This section discusses
+how this system relates to some common patterns, and how these can be
+implemented.</p>
+<div class="section" id="observer-pattern">
+<h3>Observer pattern<a class="headerlink" href="#observer-pattern" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>The idea of the observer pattern is that observers keep track (the state
+of) of an object, and that object is agnostic about what it&#8217;s tracked by.
+For example, in a music player, instead of writing code to update the
+window-title inside the function that starts a song, there would be a
+concept of a &#8220;current song&#8221;, and the window would listen for changes to
+the current song to update the title when it changes.</p>
+<p>In <code class="docutils literal"><span class="pre">flexx.event</span></code>, a <code class="docutils literal"><span class="pre">HasEvents</span></code> object keeps track of its observers
+(handlers) and notifies them when there are changes. In our music player
+example, there would be a property &#8220;current_song&#8221;, and a handler to
+take action when it changes.</p>
+<p>As is common in the observer pattern, the handlers keep track of the
+handlers that they observe. Therefore both handlers and <code class="docutils literal"><span class="pre">HasEvents</span></code>
+objects have a <code class="docutils literal"><span class="pre">dispose()</span></code> method for cleaning up.</p>
+</div>
+<div class="section" id="signals-and-slots">
+<h3>Signals and slots<a class="headerlink" href="#signals-and-slots" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>The Qt GUI toolkit makes use of a mechanism called &#8220;signals and slots&#8221; as
+an easy way to connect different components of an application. In
+<code class="docutils literal"><span class="pre">flexx.event</span></code> signals translate to readonly properties, and slots to
+the handlers that connect to them.</p>
+</div>
+<div class="section" id="overloadable-event-handlers">
+<h3>Overloadable event handlers<a class="headerlink" href="#overloadable-event-handlers" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>In Qt, the &#8220;event system&#8221; consists of methods that handles an event, which
+can be overloaded in subclasses to handle an event differently. In
+<code class="docutils literal"><span class="pre">flexx.event</span></code>, handlers can similarly be re-implemented in subclasses,
+and these can call the original handler using <code class="docutils literal"><span class="pre">super()</span></code> if needed.</p>
+</div>
+<div class="section" id="publish-subscribe-pattern">
+<h3>Publish-subscribe pattern<a class="headerlink" href="#publish-subscribe-pattern" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>In pub-sub, publishers generate messages identified by a &#8216;topic&#8217;, and
+subscribers can subscribe to such topics. There can be zero or more publishers
+and zero or more subscribers to any topic.</p>
+<p>In <code class="docutils literal"><span class="pre">flexx.event</span></code> a <cite>HasEvents</cite> object can play the role of a broker.
+Publishers can simply emit events. The event type represents the message
+topic. Subscribers are represented by handlers.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Event system introduction</a><ul>
+<li><a class="reference internal" href="#event">Event</a></li>
+<li><a class="reference internal" href="#the-hasevents-class">The HasEvents class</a></li>
+<li><a class="reference internal" href="#handler">Handler</a></li>
+<li><a class="reference internal" href="#event-emitters">Event emitters</a><ul>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+<li><a class="reference internal" href="#readonly">Readonly</a></li>
+<li><a class="reference internal" href="#emitter">Emitter</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connection-string-syntax">Connection string syntax</a><ul>
+<li><a class="reference internal" href="#labels">Labels</a></li>
+<li><a class="reference internal" href="#dynamism">Dynamism</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#patterns">Patterns</a><ul>
+<li><a class="reference internal" href="#observer-pattern">Observer pattern</a></li>
+<li><a class="reference internal" href="#signals-and-slots">Signals and slots</a></li>
+<li><a class="reference internal" href="#overloadable-event-handlers">Overloadable event handlers</a></li>
+<li><a class="reference internal" href="#publish-subscribe-pattern">Publish-subscribe pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.event</a><ul>
+      <li>Previous: <a href="index.html" title="前の章へ">Reference for flexx.event</a></li>
+      <li>Next: <a href="api.html" title="次の章へ">Event API</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/event/intro.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/event/intro.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

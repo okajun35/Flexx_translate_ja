@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Box &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Ui API" href="api.html" />
+    <link rel="next" title="Dock" href="dock.html" />
+    <link rel="prev" title="Widget" href="widget.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.ui.layouts._box">
+<span id="box"></span><h1>Box<a class="headerlink" href="#module-flexx.ui.layouts._box" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>The box layout classes provide a simple mechanism to horizontally
+or vertically stack child widgets. The <code class="docutils literal"><span class="pre">BoxLayout</span></code> (and <code class="docutils literal"><span class="pre">HBox</span></code> and
+<code class="docutils literal"><span class="pre">VBox</span></code>) are intended for laying out leaf content taking into account the
+natural size of the child widgets. The <code class="docutils literal"><span class="pre">BoxPanel</span></code> (and <code class="docutils literal"><span class="pre">HBoxPanel</span></code> and
+<code class="docutils literal"><span class="pre">VBoxPanel</span></code>) are intended for higher-level layout. Instead of the &#8220;natural&#8221;
+size of a widget, the widgets <code class="docutils literal"><span class="pre">base_size</span></code> property is used as the
+&#8220;reference&#8221; size.</p>
+<p>In chosing between these two kinds of layouts, one could ask oneself whether
+the layout can be replaced by a <code class="docutils literal"><span class="pre">SplitPanel</span></code>. If it can, use a <code class="docutils literal"><span class="pre">BoxPanel</span></code>.</p>
+<p>Example for BoxLayout:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">BoxLayout</span><span class="p">(</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;v&#39;</span><span class="p">):</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Flex 0 0 0&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Flex 1 0 3&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;padding 10 (around layout)&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;spacing 10 (inter-widget)&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Note the spacer Widget above&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example8c542a42261cdbc9e06e2b864dd03ba8.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 250px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example8c542a42261cdbc9e06e2b864dd03ba8.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><p>A similar example using a BoxPanel:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">VBoxPanel</span><span class="p">():</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Flex 0 0 0&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBoxPanel</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Flex 1 0 3&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBoxPanel</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;spacing 10 (inter-widget)&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBoxPanel</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Hello world&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Foo bar&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/examplebf47d3c6575ce980c36504ba51541a4a.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 250px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/examplebf47d3c6575ce980c36504ba51541a4a.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><p>Interactive BoxLayout example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">ui</span><span class="p">,</span> <span class="n">event</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Horizontal&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Vertical&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b3</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Horizontal reversed&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b4</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Vertical reversed&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;b1.mouse_down&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_to_horizontal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;h&#39;</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;b2.mouse_down&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_to_vertical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;v&#39;</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;b3.mouse_down&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_to_horizontal_rev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;hr&#39;</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;b4.mouse_down&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_to_vertical_r</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;vr&#39;</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example088ad04a232d8aa34ad6d027c2b2c36a.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 200px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example088ad04a232d8aa34ad6d027c2b2c36a.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><p>A classic high level layout:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">ui</span>
+
+
+<span class="k">class</span> <span class="nc">Content</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Here we use BoxLayout, because we care about natural size</span>
+
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBox</span><span class="p">():</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># spacer</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+                <span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># spacer</span>
+
+
+<span class="k">class</span> <span class="nc">SideWidget</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">):</span>
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s1">&#39;.flx-SideWidget {background: #aaf; border: 2px solid black;}&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Here we use BoxPanel, because we define high-level layout</span>
+
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">VBoxPanel</span><span class="p">():</span>
+            <span class="n">SideWidget</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Header&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">base_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">HBoxPanel</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">SideWidget</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Left&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">base_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+                <span class="n">Content</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">SideWidget</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Right&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">base_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+            <span class="n">SideWidget</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Bottom&#39;</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">base_size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/examplede73540c1fae8033c992c47006895d8e.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 300px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/examplede73540c1fae8033c992c47006895d8e.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><hr class="docutils" />
+<dl class="class">
+<dt id="flexx.ui.layouts._box.BaseBoxLayout">
+<em class="property">class </em><code class="descclassname">flexx.ui.layouts._box.</code><code class="descname">BaseBoxLayout</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.layouts._box.BaseBoxLayout" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="layout.html#flexx.ui.Layout" title="flexx.ui.Layout"><code class="xref py py-class docutils literal"><span class="pre">Layout</span></code></a></p>
+<p>Base class for BoxLayout and BoxPanel.</p>
+<dl class="attribute">
+<dt id="flexx.ui.layouts._box.BaseBoxLayout.orientation">
+<code class="descname">orientation</code><a class="headerlink" href="#flexx.ui.layouts._box.BaseBoxLayout.orientation" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The orientation of the child widgets. &#8216;h&#8217; or &#8216;v&#8217;. Default
+horizontal. The items can also be reversed using &#8216;hr&#8217; and &#8216;vr&#8217;.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.layouts._box.BaseBoxLayout.spacing">
+<code class="descname">spacing</code><a class="headerlink" href="#flexx.ui.layouts._box.BaseBoxLayout.spacing" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The space between two child elements (in pixels)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.BoxLayout">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">BoxLayout</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.BoxLayout" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.layouts._box.BaseBoxLayout" title="flexx.ui.layouts._box.BaseBoxLayout"><code class="xref py py-class docutils literal"><span class="pre">BaseBoxLayout</span></code></a></p>
+<p>Layout to distribute space for widgets horizontally or vertically.</p>
+<p>This layout implements CSS flexbox. The reference size of each child
+widget is based on its natural size (e.g. a button&#8217;s natural size
+depends on its text). Further, the minimum and maximum size (set
+via styling) are taken into account. Extra space is divided
+according to the flex property of the child widgets.</p>
+<p>Also see VBox and HBox for shorthands.</p>
+<dl class="attribute">
+<dt id="flexx.ui.BoxLayout.padding">
+<code class="descname">padding</code><a class="headerlink" href="#flexx.ui.BoxLayout.padding" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The empty space around the layout (in pixels).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.BoxPanel">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">BoxPanel</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.BoxPanel" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.layouts._box.BaseBoxLayout" title="flexx.ui.layouts._box.BaseBoxLayout"><code class="xref py py-class docutils literal"><span class="pre">BaseBoxLayout</span></code></a></p>
+<p>Layout to distribute space for widgets horizontally or vertically.</p>
+<p>This layout is implemented using absolute positioning. The reference
+size of each child widget is based on its <code class="docutils literal"><span class="pre">base_size</span></code> property.
+When this value is zero, an attempt is made to measure the natural size
+of the children, but this is not very reliable.
+Further, the minimum and maximum size (set via styling) are taken
+into account. Extra space is divided according to the flex property
+of the child widgets.</p>
+<p>The BoxPanel differs from the BoxLayout in that the natural size
+of widgets is <em>not</em> taken into account. It is therefore more
+suited for high-level layout or for child widgets that do not have
+a natural size.</p>
+<p>Also see VBoxPanel and HBoxPanel for shorthands.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.HBox">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">HBox</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.HBox" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.BoxLayout" title="flexx.ui.BoxLayout"><code class="xref py py-class docutils literal"><span class="pre">BoxLayout</span></code></a></p>
+<p>BoxLayout with horizontal layout. Consider using HBoxPanel if
+you&#8217;re using this for high-level layout.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.HBoxPanel">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">HBoxPanel</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.HBoxPanel" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.BoxPanel" title="flexx.ui.BoxPanel"><code class="xref py py-class docutils literal"><span class="pre">BoxPanel</span></code></a></p>
+<p>BoxPanel with horizontal layout. Consider using HBox if you&#8217;re using
+this for low-level layout and the children have a &#8220;natural&#8221; size.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.VBox">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">VBox</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.VBox" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.BoxLayout" title="flexx.ui.BoxLayout"><code class="xref py py-class docutils literal"><span class="pre">BoxLayout</span></code></a></p>
+<p>BoxLayout with vertical layout. Consider using VBoxPanel if
+you&#8217;re using this for high-level layout.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.VBoxPanel">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">VBoxPanel</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.VBoxPanel" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.BoxPanel" title="flexx.ui.BoxPanel"><code class="xref py py-class docutils literal"><span class="pre">BoxPanel</span></code></a></p>
+<p>BoxPanel with vertical layout. Consider using VBox if you&#8217;re using
+this for low-level layout and the children have a &#8220;natural&#8221; size.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.ui</a><ul>
+  <li><a href="api.html">Ui API</a><ul>
+      <li>Previous: <a href="widget.html" title="前の章へ">Widget</a></li>
+      <li>Next: <a href="dock.html" title="次の章へ">Dock</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/ui/box.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/ui/box.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

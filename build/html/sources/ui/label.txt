@@ -1,0 +1,10 @@
+Label
+-----
+
+.. automodule:: flexx.ui.widgets._label
+
+----
+
+.. autoclass:: flexx.ui.Label
+ :members:
+

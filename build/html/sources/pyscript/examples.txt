@@ -1,0 +1,6 @@
+PyScript examples
+=================
+
+* `flexx_tutorial_pyscript.ipynb <https://github.com/zoofIO/flexx-notebooks/blob/master/flexx_tutorial_pyscript.ipynb>`_ (external notebook)
+* :ref:`js_module.py`
+* :ref:`transpiling.py`

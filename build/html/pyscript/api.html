@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyScript API &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Reference for flexx.pyscript" href="index.html" />
+    <link rel="next" title="PyScript quick user guide" href="guide.html" />
+    <link rel="prev" title="PyScript introduction" href="intro.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyscript-api">
+<h1>PyScript API<a class="headerlink" href="#pyscript-api" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="function">
+<dt id="flexx.pyscript.py2js">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">py2js</code><span class="sig-paren">(</span><em>ob=None</em>, <em>new_name=None</em>, <em>**parser_options</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.py2js" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Convert Python to JavaScript.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>ob</strong> (<em>str, module, function, class</em>) &#8211; The code, function or class
+to transpile.</li>
+<li><strong>new_name</strong> (<em>str, optional</em>) &#8211; If given, renames the function or
+class. This argument is ignored if ob is a string.</li>
+<li><strong>parser_options</strong> &#8211; Additional options for the parser. See Parser class
+for details.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first"><p><strong>jscode</strong> &#8211; The JavaScript code as a special str object that
+has a <code class="docutils literal"><span class="pre">meta</span></code> attribute that contains the following fields:</p>
+<ul class="simple">
+<li>filename (str): the name of the file that defines the object.</li>
+<li>linenr (int): the starting linenr for the object definition.</li>
+<li>pycode (str): the Python code used to generate the JS.</li>
+<li>pyhash (str): a hash of the Python code.</li>
+<li>vars_defined (set): names defined in the toplevel namespace.</li>
+<li>vars_unknown (set): names used in the code but not defined in it.</li>
+<li>vars_global (set): names explicitly declared global.</li>
+<li>std_functions (set): stdlib functions used in this code.</li>
+<li>std_method (set): stdlib methods used in this code.</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The Python source code for a class is acquired by name.
+Therefore one should avoid decorating classes in modules where
+multiple classes with the same name are defined. This is a
+consequence of classes not having a corresponding code object (in
+contrast to functions).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.evaljs">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">evaljs</code><span class="sig-paren">(</span><em>jscode</em>, <em>whitespace=True</em>, <em>print_result=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.evaljs" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Evaluate JavaScript code in Node.js.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>jscode</strong> (<em>str</em>) &#8211; the JavaScript code to evaluate.</li>
+<li><strong>whitespace</strong> (<em>bool</em>) &#8211; if whitespace is False, the whitespace
+is removed from the result. Default True.</li>
+<li><strong>print_result</strong> (<em>bool</em>) &#8211; whether to print the result of the evaluation.
+Default True. If False, larger pieces of code can be evaluated
+because we can use file-mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first"><strong>result</strong> &#8211; the last result as a string.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.evalpy">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">evalpy</code><span class="sig-paren">(</span><em>pycode</em>, <em>whitespace=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.evalpy" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Evaluate PyScript code in Node.js (after translating to JS).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>pycode</strong> (<em>str</em>) &#8211; the PyScript code to evaluate.</li>
+<li><strong>whitespace</strong> (<em>bool</em>) &#8211; if whitespace is False, the whitespace is
+removed from the result. Default True.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first"><strong>result</strong> &#8211; the last result as a string.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.script2js">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">script2js</code><span class="sig-paren">(</span><em>filename</em>, <em>namespace=None</em>, <em>target=None</em>, <em>module_type='umd'</em>, <em>**parser_options</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.script2js" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Export a .py file to a .js file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; the filename of the .py file to transpile.</li>
+<li><strong>namespace</strong> (<em>str</em>) &#8211; the namespace for this module. (optional)</li>
+<li><strong>target</strong> (<em>str</em>) &#8211; the filename of the resulting .js file. If not given
+or None, will use the <code class="docutils literal"><span class="pre">filename</span></code>, but with a <code class="docutils literal"><span class="pre">.js</span></code> extension.</li>
+<li><strong>module_type</strong> (<em>str</em>) &#8211; the type of module to produce (if namespace is given),
+can be &#8216;hidden&#8217;, &#8216;simple&#8217;, &#8216;amd&#8217;, &#8216;umd&#8217;, default &#8216;umd&#8217;.</li>
+<li><strong>parser_options</strong> &#8211; additional options for the parser. See Parser class
+for details.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.js_rename">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">js_rename</code><span class="sig-paren">(</span><em>jscode</em>, <em>cur_name</em>, <em>new_name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.js_rename" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Rename a function or class in a JavaScript code string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>jscode</strong> (<em>str</em>) &#8211; the JavaScript source code</li>
+<li><strong>cur_name</strong> (<em>str</em>) &#8211; the current name</li>
+<li><strong>new_name</strong> (<em>str</em>) &#8211; the name to replace the current name with</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first"><strong>jscode</strong> &#8211; the modified JavaScript source code</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.get_full_std_lib">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">get_full_std_lib</code><span class="sig-paren">(</span><em>indent=0</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.get_full_std_lib" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the code for the full PyScript standard library.</p>
+<p>The given indent specifies how many sets of 4 spaces to prepend.
+If the full stdlib is made available in JavaScript, multiple
+snippets of code can be transpiled without inlined stdlib parts by
+using <code class="docutils literal"><span class="pre">py2js(...,</span> <span class="pre">inline_stdlib=False)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.get_all_std_names">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">get_all_std_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.get_all_std_names" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get list if function names and methods names in std lib.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.pyscript.create_js_module">
+<code class="descclassname">flexx.pyscript.</code><code class="descname">create_js_module</code><span class="sig-paren">(</span><em>name</em>, <em>code</em>, <em>imports</em>, <em>exports</em>, <em>type='umd'</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.create_js_module" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Wrap the given code in an AMD module.</p>
+<p>Note that &#8220;use strict&#8221; is added to the top of the module body. PyScript
+does not deal with license strings; the caller should do that.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; the name of the module.</li>
+<li><strong>code</strong> (<em>str</em>) &#8211; the JS code to wrap.</li>
+<li><strong>imports</strong> (<em>list</em>) &#8211; the imports for this module, as string names of the
+dependencies. Optionally, &#8216;as&#8217; can  be used to make a dependency
+available under a specific name (e.g. &#8216;foo.js as foo&#8217;).</li>
+<li><strong>exports</strong> (<em>str, list</em>) &#8211; the result of this module (i.e. what other modules
+get when they import this module. Can be a JS expression or a list
+of names to export.</li>
+<li><strong>type</strong> (<em>str</em>) &#8211; the type of module to export, valid values are
+&#8216;hidden&#8217;, &#8216;simple&#8217; (save module on root), &#8216;amd&#8217; , &#8216;amd-flexx&#8217; and
+&#8216;umd&#8217; (case insensitive). Default &#8216;umd&#8217;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<p>Most users probably want to use the above functions, but you can also
+get closer to the metal by using and/or extending the parser class.</p>
+<dl class="class">
+<dt id="flexx.pyscript.Parser">
+<em class="property">class </em><code class="descclassname">flexx.pyscript.</code><code class="descname">Parser</code><span class="sig-paren">(</span><em>code</em>, <em>pysource=None</em>, <em>indent=0</em>, <em>docstrings=True</em>, <em>inline_stdlib=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.Parser" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Parser to convert Python to JavaScript.</p>
+<p>Instantiate this class with the Python code. Retrieve the JS code
+using the dump() method.</p>
+<p>In a subclass, you can implement methods called &#8220;function_x&#8221; or
+&#8220;method_x&#8221;, which will then be called during parsing when a
+function/method with name &#8220;x&#8221; is encountered. Several methods and
+functions are already implemented in this way.</p>
+<p>While working on ast parsing, this resource is very helpful:
+<a class="reference external" href="https://greentreesnakes.readthedocs.org">https://greentreesnakes.readthedocs.org</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>code</strong> (<em>str</em>) &#8211; the Python source code.</li>
+<li><strong>pysource</strong> (<em>tuple</em>) &#8211; the filename and line number that contain the source.</li>
+<li><strong>indent</strong> (<em>int</em>) &#8211; the base indentation level (default 0). One
+indentation level means 4 spaces.</li>
+<li><strong>docstrings</strong> (<em>bool</em>) &#8211; whether docstrings are included in JS
+(default True).</li>
+<li><strong>inline_stdlib</strong> (<em>bool</em>) &#8211; whether the used stdlib functions are inlined
+(default True). Set to False if the stdlib is already loaded.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<hr class="docutils" />
+<p>PyScript allows embedding raw JavaScript using the <code class="docutils literal"><span class="pre">RawJS</span></code> class.</p>
+<dl class="class">
+<dt id="flexx.pyscript.RawJS">
+<em class="property">class </em><code class="descclassname">flexx.pyscript.</code><code class="descname">RawJS</code><span class="sig-paren">(</span><em>code</em>, <em>_resolve_defining_module=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.pyscript.RawJS" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>An object to wrap verbatim code to be included in the generated
+JavaScript. This serves a number of purposes:</p>
+<ul class="simple">
+<li>Using code in PyScript that is not valid Python syntax, like regular
+expressions or the jQuery object <code class="docutils literal"><span class="pre">$</span></code>.</li>
+<li>Write high performance code that avoids Pythonic features like operator
+overloading.</li>
+<li>In Flexx&#8217;s module system it can be used to create a stub variable in
+Python that <em>does</em> have a value in JS. This value can imported in other
+modules, leading to a shared value also in JS.</li>
+</ul>
+<p>PyScript does not verify the syntax of the code, so write carefully!
+To allow the features in the 3d point, this object has a magic touch:
+the <code class="docutils literal"><span class="pre">__module__</span></code> attribute of an instance refers to the module in which it
+was instantiated, and if it&#8217;s a global, its defining name can be obtained.</p>
+<p>Example:</p>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="c1"># Syntax not usable in Py</span>
+<span class="n">myre</span> <span class="o">=</span> <span class="n">VerbatimJS</span><span class="p">(</span><span class="s1">&#39;/ab+c/&#39;</span><span class="p">)</span>
+
+<span class="c1"># Code that should only execute on JS</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">VerbatimJS</span><span class="p">(</span><span class="s1">&#39;require(&quot;some.module&quot;)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Performance</span>
+<span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">VerbatimJS</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        for (var i=0; i&lt;n; i++) {</span>
+<span class="s1">            if (is_ok_num(i)) {</span>
+<span class="s1">                res.push(i);</span>
+<span class="s1">            }</span>
+<span class="s1">        }</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr class="docutils" />
+<p>The PyScript module has a few dummy constants that can be imported and
+used in your code to let e.g. pyflakes know that the variable exists. E.g.
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">flexx.pyscript</span> <span class="pre">import</span> <span class="pre">undefined,</span> <span class="pre">window</span> <span class="pre">Infinity,</span> <span class="pre">NaN</span></code>.
+Arbitrary dummy variables can be imported using
+<code class="docutils literal"><span class="pre">from</span> <span class="pre">flexx.pyscript.stubs</span> <span class="pre">import</span> <span class="pre">JSON,</span> <span class="pre">foo,</span> <span class="pre">bar</span></code>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.pyscript</a><ul>
+      <li>Previous: <a href="intro.html" title="前の章へ">PyScript introduction</a></li>
+      <li>Next: <a href="guide.html" title="次の章へ">PyScript quick user guide</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/pyscript/api.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/pyscript/api.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,10 @@
+Stack
+-----
+
+.. automodule:: flexx.ui.layouts._stack
+
+----
+
+.. autoclass:: flexx.ui.StackedPanel
+ :members:
+

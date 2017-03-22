@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>video_viewer.py &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <script type="text/javascript" src="../../static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="video-viewer-py">
+<span id="id1"></span><h1>video_viewer.py<a class="headerlink" href="#video-viewer-py" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<a target='new' href='../../ui/examples/video_viewer.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 300px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../../ui/examples/video_viewer.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><div class="highlight-py"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This example demonstrates how static files can be served by making use</span>
+<span class="sd">of a static file server.</span>
+
+<span class="sd">If you intend to create a web application, note that using a static</span>
+<span class="sd">server is a potential security risk. Use only when needed. Other options</span>
+<span class="sd">that scale better for large websites are e.g. Nginx, Apache, or 3d party</span>
+<span class="sd">services like Azure Storage or Amazon S3.</span>
+
+<span class="sd">When exported, any links to local files wont work, but the remote links will.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">event</span>
+
+<span class="kn">from</span> <span class="nn">tornado.web</span> <span class="kn">import</span> <span class="n">StaticFileHandler</span>
+
+
+<span class="c1"># The directory to load video&#39;s from</span>
+<span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/Videos&#39;</span><span class="p">)</span>
+
+<span class="c1"># Collect videos that look like they can be read in html5</span>
+<span class="n">videos</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">fname</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.mp4&#39;</span><span class="p">):</span>
+        <span class="n">videos</span><span class="p">[</span><span class="n">fname</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/videos/&#39;</span> <span class="o">+</span> <span class="n">fname</span>
+
+<span class="c1"># Add some online videos too, for fun</span>
+<span class="n">videos</span><span class="p">[</span><span class="s1">&#39;bbb.mp4 (online)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;http://www.w3schools.com/tags/mov_bbb.mp4&#39;</span>
+<span class="n">videos</span><span class="p">[</span><span class="s1">&#39;ice-age.mp4 (online)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;https://dl.dropboxusercontent.com/u/1463853/&#39;</span>
+                                  <span class="s1">&#39;ice%20age</span><span class="si">%204%</span><span class="s1">20trailer.mp4&#39;</span><span class="p">)</span>
+
+<span class="c1"># Make use of Tornado&#39;s static file handler</span>
+<span class="n">tornado_app</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">create_server</span><span class="p">()</span><span class="o">.</span><span class="n">app</span>
+<span class="n">tornado_app</span><span class="o">.</span><span class="n">add_handlers</span><span class="p">(</span><span class="s2">r&quot;.*&quot;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">r&quot;/videos/(.*)&quot;</span><span class="p">,</span> <span class="n">StaticFileHandler</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">dirname</span><span class="p">}),</span>
+    <span class="p">])</span>
+
+
+<span class="k">class</span> <span class="nc">VideoViewer</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A simple videoviewer that displays a list of videos found on the</span>
+<span class="sd">    server&#39;s computer, plus a few online videos. Note that not all videos</span>
+<span class="sd">    may be playable in HTML5.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">BoxPanel</span><span class="p">():</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeWidget</span><span class="p">(</span><span class="n">max_selected</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">flex</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="bp">self</span><span class="o">.</span><span class="n">videolist</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">videos</span><span class="p">):</span>
+                    <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">VideoWidget</span><span class="p">(</span><span class="n">flex</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;videolist.items*.selected&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">on_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ev</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">selected</span><span class="p">:</span>
+                    <span class="n">fname</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">text</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">videos</span><span class="p">[</span><span class="n">fname</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">VideoViewer</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../sources/ui/examples/video_viewer_src.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../../sources/ui/examples/video_viewer_src.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

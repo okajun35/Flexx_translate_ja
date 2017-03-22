@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>App API &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Reference for flexx.app" href="index.html" />
+    <link rel="next" title="App examples" href="examples.html" />
+    <link rel="prev" title="App introduction" href="intro.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="app-api">
+<h1>App API<a class="headerlink" href="#app-api" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="functions-related-to-the-event-loop">
+<h2>Functions related to the event loop<a class="headerlink" href="#functions-related-to-the-event-loop" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="function">
+<dt id="flexx.app.start">
+<code class="descclassname">flexx.app.</code><code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.start" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Start the server and event loop. This function generally does not
+return until the application is stopped (although it may in
+interactive environments (e.g. Pyzo)).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.run">
+<code class="descclassname">flexx.app.</code><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.run" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Start the event loop in desktop app mode; the server will close
+down when there are no more connections.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.stop">
+<code class="descclassname">flexx.app.</code><code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.stop" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Stop the event loop. This function is thread safe (it can be used
+even if <code class="docutils literal"><span class="pre">flexx.start()</span></code> was called from another thread).
+The server can be restarted after it has been stopped. Note that
+calling <code class="docutils literal"><span class="pre">stop()</span></code> too often will cause a subsequent call to <cite>start()`</cite>
+to return almost immediately.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.init_interactive">
+<code class="descclassname">flexx.app.</code><code class="descname">init_interactive</code><span class="sig-paren">(</span><em>cls=None</em>, <em>runtime=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.init_interactive" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Initialize Flexx for interactive mode. This creates a default session
+and launches a runtime to connect to it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cls</strong> (<em>None, Model</em>) &#8211; a subclass of <code class="docutils literal"><span class="pre">app.Model</span></code> (or <code class="docutils literal"><span class="pre">ui.Widget</span></code>) to use
+as the <em>default active model</em>. Only has effect the first time that
+this function is called.</li>
+<li><strong>runtime</strong> (<em>str</em>) &#8211; the runtime to launch the application in.
+Default &#8216;app or browser&#8217;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.init_notebook">
+<code class="descclassname">flexx.app.</code><code class="descname">init_notebook</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.init_notebook" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Initialize the Jupyter notebook by injecting the necessary CSS
+and JS into the browser. Note that any Flexx-based libraries that
+you plan to use should probably be imported <em>before</em> calling this.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.call_later">
+<code class="descclassname">flexx.app.</code><code class="descname">call_later</code><span class="sig-paren">(</span><em>delay</em>, <em>callback</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.call_later" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Schedule a function call in the current event loop. This function is
+thread safe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delay</strong> (<em>float</em>) &#8211; the delay in seconds. If zero, the callback will
+be executed in the next event loop iteration.</li>
+<li><strong>callback</strong> (<em>callable</em>) &#8211; the function to call.</li>
+<li><strong>args</strong> &#8211; the positional arguments to call the callback with.</li>
+<li><strong>kwargs</strong> &#8211; the keyword arguments to call the callback with.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.create_server">
+<code class="descclassname">flexx.app.</code><code class="descname">create_server</code><span class="sig-paren">(</span><em>host=None</em>, <em>port=None</em>, <em>new_loop=False</em>, <em>backend='tornado'</em>, <em>**server_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.create_server" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Create a new server object. This is automatically called; users generally
+don&#8217;t need this, unless they want to explicitly specify host/port,
+create a fresh server in testing scenarios, or run Flexx in a thread.</p>
+<p>Flexx uses a notion of a single current server object. This function
+(re)creates that object. If there already was a server object, it is
+replaced. It is an error to call this function if the current server
+is still running.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>host</strong> (<em>str</em>) &#8211; The hostname to serve on. By default
+<code class="docutils literal"><span class="pre">flexx.config.hostname</span></code> is used. If <code class="docutils literal"><span class="pre">False</span></code>, do not listen
+(e.g. when integrating with an existing Tornado application).</li>
+<li><strong>port</strong> (<em>int, str</em>) &#8211; The port number. If a string is given, it is
+hashed to an ephemeral port number. By default
+<code class="docutils literal"><span class="pre">flexx.config.port</span></code> is used.</li>
+<li><strong>new_loop</strong> (<em>bool</em>) &#8211; Whether to create a fresh Tornado IOLoop instance,
+which is made current when <code class="docutils literal"><span class="pre">start()</span></code> is called. If <code class="docutils literal"><span class="pre">False</span></code>
+(default) will use the current IOLoop for this thread.</li>
+<li><strong>backend</strong> (<em>str</em>) &#8211; Stub argument; only Tornado is currently supported.</li>
+<li><strong>**server_kwargs</strong> &#8211; keyword arguments passed to the server constructor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first">The server object, see <code class="docutils literal"><span class="pre">current_server()</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last">server</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.current_server">
+<code class="descclassname">flexx.app.</code><code class="descname">current_server</code><span class="sig-paren">(</span><em>create=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.current_server" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the current server object. Creates a server if there is none
+and the <code class="docutils literal"><span class="pre">create</span></code> arg is True. Currently, this is always a
+TornadoServer object, which has properties:</p>
+<ul class="simple">
+<li>serving: a tuple <code class="docutils literal"><span class="pre">(hostname,</span> <span class="pre">port)</span></code> specifying the location
+being served (or <code class="docutils literal"><span class="pre">None</span></code> if the server is closed).</li>
+<li>app: the <code class="docutils literal"><span class="pre">tornado.web.Application</span></code> instance</li>
+<li>loop: the <code class="docutils literal"><span class="pre">tornado.ioloop.IOLoop</span></code> instance</li>
+<li>server: the <code class="docutils literal"><span class="pre">tornado.httpserver.HttpServer</span></code> instance</li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="functions-related-to-us-model-classes-as-apps">
+<h2>Functions related to us Model classes as apps<a class="headerlink" href="#functions-related-to-us-model-classes-as-apps" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="function">
+<dt id="flexx.app.App">
+<code class="descclassname">flexx.app.</code><code class="descname">App</code><span class="sig-paren">(</span><em>cls</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.App" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Specification of a Flexx app.</p>
+<p>In the strict sense, this is a container for a Model class plus the
+args and kwargs that it is to be instantiated with.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cls</strong> (<a class="reference internal" href="#flexx.app.Model" title="flexx.app.Model"><em>Model</em></a>) &#8211; the Model class (or Widget) that represents this app.</li>
+<li><strong>args</strong> &#8211; positional arguments used to instantiate the class (and received
+in its <code class="docutils literal"><span class="pre">init()</span></code> method).</li>
+<li><strong>kwargs</strong> &#8211; keyword arguments used to initialize the model&#8217;s properties.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.serve">
+<code class="descclassname">flexx.app.</code><code class="descname">serve</code><span class="sig-paren">(</span><em>cls</em>, <em>name=None</em>, <em>properties=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.serve" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">app.App(cls).serve(name)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.launch">
+<code class="descclassname">flexx.app.</code><code class="descname">launch</code><span class="sig-paren">(</span><em>cls</em>, <em>runtime=None</em>, <em>properties=None</em>, <em>**runtime_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.launch" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">app.App(cls).launch(runtime,</span> <span class="pre">**runtime_kwargs)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.export">
+<code class="descclassname">flexx.app.</code><code class="descname">export</code><span class="sig-paren">(</span><em>cls</em>, <em>filename</em>, <em>properties=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.export" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Shorthand for <code class="docutils literal"><span class="pre">app.App(cls).export(filename,</span> <span class="pre">...)</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.get_model_classes">
+<code class="descclassname">flexx.app.</code><code class="descname">get_model_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.get_model_classes" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a list of all known Model subclasses.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.get_active_model">
+<code class="descclassname">flexx.app.</code><code class="descname">get_active_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.get_active_model" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>If the execution is now in a Model context manager, return the
+corresponding object, and None otherwise. Can be used by subclasses
+to implement parenting-like behaviour using the with-statement.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flexx.app.get_active_models">
+<code class="descclassname">flexx.app.</code><code class="descname">get_active_models</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.get_active_models" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a tuple of Model instance that represent the stack of &#8220;active&#8221;
+models. Each thread has its own stack. Also see get_active_model().</p>
+</dd></dl>
+
+</div>
+<div class="section" id="the-model-class">
+<h2>The Model class<a class="headerlink" href="#the-model-class" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<dl class="class">
+<dt id="flexx.app.Model">
+<em class="property">class </em><code class="descclassname">flexx.app.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Model" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Subclass of HasEvents representing Python-JavaScript object models.</p>
+<p>Each instance of this class has a corresponding object in
+JavaScript. Events are transparently handled accross the language
+barrier. To avoid unnecessary communication, only events for which
+there are handlers at the other side are synchronized.</p>
+<p>The JS version of this class is defined by the contained <code class="docutils literal"><span class="pre">JS</span></code>
+class. One can define methods, properties, handlers, and (json
+serializable) constants on the JS class.</p>
+<p>One can also make use of a contained <code class="docutils literal"><span class="pre">Both</span></code> class to define things
+that will be present in both Python and JS. This is intended primarily
+for defining properties, which can be set on both ends, and which get
+automatically synchronised.</p>
+<p>The <code class="docutils literal"><span class="pre">init()</span></code> method on both the Python and JS side can be used
+to do initialization at a time when properties have their initial
+values, but handlers are not yet initialized and events are not yet
+emitted. When a Model instance is assigned as an attribute to the Python
+instance (inside the init() method), the corresponding attribute
+will also be present at the JavaScript side.</p>
+<p>Initialization order and life cycle:</p>
+<ul class="simple">
+<li>An id and session are associated with the model.</li>
+<li>The default/initial values for the properties are set.</li>
+<li>The init() is called. You can get/set properties and attributes here.</li>
+<li>The handlers are connected. You can use properties here, as well
+as attributes set in init(). Handlers connected to events that
+correspond to a property receive an event to communicate the
+initial value (unless that property does not have a value yet).</li>
+<li>On the JavaScript side the same order applies. The creation of
+the JavaScript object occurs after the Python object is created.</li>
+<li>The JavaScript part of a Model is not garbadge collected, but removed
+when the Python side object is deleted or disposed using dispose().</li>
+<li>The Python part of a model is garbadge collected as usual. Note that
+handlers hold references to the objects that they connect to.</li>
+<li>Note that the Widget class has a mechanism to avoid being deleted
+when it is temporarily not referenced due to jitter in the
+children property.</li>
+</ul>
+<p>Models can be used as a context manager to make new Model objects
+created inside such a context to share the same session. The <code class="docutils literal"><span class="pre">init()</span></code>
+method is invoked in the context of the object itself.</p>
+<p>The typical way to use a model is do define properties (preferably
+in the Both &#8220;subclass&#8221;) and events, and react to these by writing
+handlers at the side where the action should be taken. See the example
+below or many of the examples of the Flexx documentation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>session</strong> (<em>Session, None</em>) &#8211; the session object that connects this
+instance to a JS client. If not given, will use the session
+of a currently active model (i.e. as a context manager).</li>
+<li><strong>is_app</strong> (<em>bool</em>) &#8211; whether this object is the main app object. Set
+by Flexx internally. Not used by the Model class, but can
+be used by subclasses.</li>
+<li><strong>kwargs</strong> &#8211; initial property values (see HasEvents).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This class provides the base object for all widget classes in
+<code class="docutils literal"><span class="pre">flexx.ui</span></code>. However, one can also create subclasses that have
+nothing to do with user interfaces or DOM elements.</p>
+<p class="rubric">Example</p>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handle_changes_to_foo_in_python</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="k">class</span> <span class="nc">Both</span><span class="p">:</span>
+
+        <span class="nd">@event.prop</span>
+        <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="n">BAR</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">handle_changes_to_foo_in_js</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="o">...</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="flexx.app.Model.dispose">
+<code class="descname">dispose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Model.dispose" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Overloaded version of dispose() that removes the global
+reference of the JS version of the object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Model.id">
+<code class="descname">id</code><a class="headerlink" href="#flexx.app.Model.id" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The unique id of this Model instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Model.init">
+<code class="descname">init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Model.init" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Can be overloaded when creating a custom class to do
+initialization, such as creating sub models. This function is
+called with this object as a context manager (the default
+context is a stub).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Model.send_data">
+<code class="descname">send_data</code><span class="sig-paren">(</span><em>data</em>, <em>meta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Model.send_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Send data to the JS side, where <code class="docutils literal"><span class="pre">retreive_data()</span></code> will be called,
+which will eventually call <code class="docutils literal"><span class="pre">receive_data()</span></code> with the corresponding
+data and meta data.</p>
+<p>AJAX is used to retrieve the data. In the future we may want to use
+a dedicated binary websocket for better performance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>bytes, str</em>) &#8211; the data blob. Can also be a URL (a string
+starting with &#8220;<a class="reference external" href="http://">http://</a>&#8221;, &#8220;<a class="reference external" href="https://">https://</a>&#8221;, &#8220;/flexx/data/&#8221; or &#8220;_data/&#8221;)
+where the client can download the data from.</li>
+<li><strong>meta</strong> (<em>dict, optional</em>) &#8211; information associated with the data
+that the JS side can use to interpret the data. This function
+will add an &#8220;id&#8221; field to the meta data.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Model.session">
+<code class="descname">session</code><a class="headerlink" href="#flexx.app.Model.session" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The session object that connects us to the runtime.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Model.sync_props">
+<code class="descname">sync_props</code><a class="headerlink" href="#flexx.app.Model.sync_props" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether properties are synchronised from JS to Python. This
+can be set to <code class="docutils literal"><span class="pre">False</span></code> if a model has properties that change
+a lot, but are not of interest for the Python side. Note that
+events are still synchronised if there is a Python handler.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="session-and-assets">
+<h2>Session and Assets<a class="headerlink" href="#session-and-assets" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>An asset is represented using an <code class="docutils literal"><span class="pre">Asset</span></code> object that defines its sources,
+dependencies, etc. Assets can be shared or specific to the session.
+The AssetStore provides all shared assets for clients connected to the current
+process. The global store is at <code class="docutils literal"><span class="pre">flexx.app.assets</span></code>.
+The session object handles the connection between Python and the JavaScript,
+and it allows adding client-side assets, which for instance makes it
+easy to create extensions based on existing JS libraries.</p>
+<dl class="class">
+<dt id="flexx.app.Asset">
+<em class="property">class </em><code class="descclassname">flexx.app.</code><code class="descname">Asset</code><span class="sig-paren">(</span><em>name</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Asset" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Class to represent an asset (JS or CSS) to be included on the page.
+Users will typically use <code class="docutils literal"><span class="pre">app.assets.add_shared_asset()</span></code>, see the
+corresponding docs for details.</p>
+<dl class="attribute">
+<dt id="flexx.app.Asset.name">
+<code class="descname">name</code><a class="headerlink" href="#flexx.app.Asset.name" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The (file) name of this asset.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Asset.remote">
+<code class="descname">remote</code><a class="headerlink" href="#flexx.app.Asset.remote" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Whether the asset is remote (client will load it from elsewhere).
+If True, the source specifies the URL.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Asset.source">
+<code class="descname">source</code><a class="headerlink" href="#flexx.app.Asset.source" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The source for this asset. Can be str, URL or callable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Asset.to_html">
+<code class="descname">to_html</code><span class="sig-paren">(</span><em>path='{}'</em>, <em>link=3</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Asset.to_html" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get HTML element tag to include in the document.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>str</em>) &#8211; the path of this asset, in which &#8216;{}&#8217; can be used as
+a placeholder for the asset name.</li>
+<li><strong>link</strong> (<em>int</em>) &#8211; <p>whether to link to this asset:</p>
+<ul>
+<li>0: the asset is embedded.</li>
+<li>1: normal assets are embedded, remote assets remain remote.</li>
+<li>2: the asset is linked (and served by our server).</li>
+<li>3: (default) normal assets are linked, remote assets remain remote.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Asset.to_string">
+<code class="descname">to_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Asset.to_string" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the string code for this asset. Even for remote assets.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.app._assetstore.AssetStore">
+<em class="property">class </em><code class="descclassname">flexx.app._assetstore.</code><code class="descname">AssetStore</code><a class="headerlink" href="#flexx.app._assetstore.AssetStore" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Provider of shared assets (CSS, JavaScript) and data (images, etc.).
+Keeps track of JSModules and makes them available via asset bundles.
+The global asset store object can be found at <code class="docutils literal"><span class="pre">flexx.app.assets</span></code>.
+Assets and data in the asset store can be used by all sessions.
+Each session object also keeps track of data.</p>
+<p>Assets with additional JS or CSS to load can be used simply by
+creating/importing them in a module that defines the Model class
+that needs the asset.</p>
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.add_shared_asset">
+<code class="descname">add_shared_asset</code><span class="sig-paren">(</span><em>asset_name</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.add_shared_asset" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Add an asset to the store so that the client can load it from the
+server. Users typically only need this to provide an asset without
+loading it in the main page, e.g. when the asset is loaded by a
+secondary page, a web worker, or AJAX.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; the asset name, e.g. &#8216;foo.js&#8217; or &#8216;bar.css&#8217;. Can contain
+slashes to emulate a file system. e.g. &#8216;spam/foo.js&#8217;. If a URL
+is given, both name and source are implicitly set (and its
+a remote asset).</li>
+<li><strong>source</strong> (<em>str, function</em>) &#8211; <p>the source for this asset. Can be:</p>
+<ul>
+<li>The source code.</li>
+<li>A URL (str starting with &#8216;<a class="reference external" href="http://">http://</a>&#8216; or &#8216;<a class="reference external" href="https://">https://</a>&#8216;),
+making this a &#8220;remote asset&#8221;. Note that <code class="docutils literal"><span class="pre">app.export()</span></code>
+provides control over how (remote) assets are handled.</li>
+<li>A funcion that should return the source code, and which is
+called only when the asset is used. This allows defining
+assets without causing side effects when they&#8217;re not used.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first">the (relative) url at which the asset can be retrieved.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../ui/iframe.html#flexx.ui.IFrame.url" title="flexx.ui.IFrame.url">url</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.add_shared_data">
+<code class="descname">add_shared_data</code><span class="sig-paren">(</span><em>name</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.add_shared_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Add data to serve to the client (e.g. images), which is shared
+between sessions. It is an error to add data with a name that is
+already registered. See <code class="docutils literal"><span class="pre">Session.add_data()</span></code> to set data per-session
+and <cite>Model.send_data()`</cite> to send data to Model objects directly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; the name of the data, e.g. &#8216;icon.png&#8217;.</li>
+<li><strong>data</strong> (<em>bytes</em>) &#8211; the data blob.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first">the (relative) url at which the data can be retrieved.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../ui/iframe.html#flexx.ui.IFrame.url" title="flexx.ui.IFrame.url">url</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.associate_asset">
+<code class="descname">associate_asset</code><span class="sig-paren">(</span><em>mod_name</em>, <em>asset_name</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.associate_asset" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Associate an asset with the given module.
+The assets will be loaded when the module that it is associated with
+is used by JavaScript. Multiple assets can be associated with
+a module, and an asset can be associated with multiple modules.</p>
+<p>The intended usage is to write the following inside a module that needs
+the asset: <code class="docutils literal"><span class="pre">app.assets.associate_asset(__name__,</span> <span class="pre">...)</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>mod_name</strong> (<em>str</em>) &#8211; The name of the module to associate the asset with.</li>
+<li><strong>asset_name</strong> (<em>str</em>) &#8211; The name of the asset to associate. Can be an
+already registered asset, or a new asset.</li>
+<li><strong>source</strong> (<em>str, callable, optional</em>) &#8211; The source for a new asset. See
+<code class="docutils literal"><span class="pre">add_shared_asset()</span></code> for details. It is an error to supply a
+source if the asset_name is already registered.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first">the (relative) url at which the asset can be retrieved.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../ui/iframe.html#flexx.ui.IFrame.url" title="flexx.ui.IFrame.url">url</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.export">
+<code class="descname">export</code><span class="sig-paren">(</span><em>dirname</em>, <em>clear=False</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.export" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Write all shared data and used assets to the given directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dirname</strong> (<em>str</em>) &#8211; the directory to export to. The toplevel
+directory is created if necessary.</li>
+<li><strong>clear</strong> (<em>bool</em>) &#8211; if given and True, the directory is first cleared.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.get_asset">
+<code class="descname">get_asset</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.get_asset" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the asset instance corresponding to the given name or None
+if it not known.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.get_asset_names">
+<code class="descname">get_asset_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.get_asset_names" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a list of all asset names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.get_associated_assets">
+<code class="descname">get_associated_assets</code><span class="sig-paren">(</span><em>mod_name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.get_associated_assets" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the names of the assets associated with the given module name.
+Sorted by instantiation time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.get_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the data (as bytes) corresponding to the given name or None
+if it not known.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.get_data_names">
+<code class="descname">get_data_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.get_data_names" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a list of all data names.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app._assetstore.AssetStore.modules">
+<code class="descname">modules</code><a class="headerlink" href="#flexx.app._assetstore.AssetStore.modules" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The JSModule objects known to the asset store. Each module
+corresponds to a Python module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app._assetstore.AssetStore.update_modules">
+<code class="descname">update_modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app._assetstore.AssetStore.update_modules" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Collect and update the JSModule instances that correspond
+to Python modules that define Model classes. Any newly created
+modules get added to all corresponding assets bundles (creating
+them if needed).</p>
+<p>It is safe (and pretty fast) to call this more than once since
+only missing modules are added. This gets called automatically
+by the Session object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.app.Session">
+<em class="property">class </em><code class="descclassname">flexx.app.</code><code class="descname">Session</code><span class="sig-paren">(</span><em>app_name</em>, <em>store=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>A session between Python and the client runtime.
+This class is what holds together the app widget, the web runtime,
+and the websocket instance that connects to it.</p>
+<p>Responsibilities:</p>
+<ul class="simple">
+<li>Send messages to the client and parse messages received by the client.</li>
+<li>Keep track of Model instances associated with the session.</li>
+<li>Ensure that the client has all the module definitions it needs.</li>
+<li>Allow the user to send data to the client.</li>
+</ul>
+<dl class="method">
+<dt id="flexx.app.Session.add_data">
+<code class="descname">add_data</code><span class="sig-paren">(</span><em>name</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.add_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Add data to serve to the client (e.g. images), specific to this
+session. Returns the link at which the data can be retrieved.
+See <code class="docutils literal"><span class="pre">Session.send_data()</span></code> for a send-and-forget mechanism, and
+<code class="docutils literal"><span class="pre">app.assets.add_shared_data()</span></code> to provide shared data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; the name of the data, e.g. &#8216;icon.png&#8217;. If data has
+already been set on this name, it is overwritten.</li>
+<li><strong>data</strong> (<em>bytes</em>) &#8211; the data blob.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">戻り値:</th><td class="field-body"><p class="first">the (relative) url at which the data can be retrieved.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">戻り値の型:</th><td class="field-body"><p class="first last"><a class="reference internal" href="../ui/iframe.html#flexx.ui.IFrame.url" title="flexx.ui.IFrame.url">url</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.app">
+<code class="descname">app</code><a class="headerlink" href="#flexx.app.Session.app" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The Model instance that represents the app.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.app_name">
+<code class="descname">app_name</code><a class="headerlink" href="#flexx.app.Session.app_name" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The name of the application that this session represents.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.assets_to_ignore">
+<code class="descname">assets_to_ignore</code><a class="headerlink" href="#flexx.app.Session.assets_to_ignore" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The set of names of assets that should <em>not</em> be pushed to
+the client, e.g. because they are already present on the page.
+Add names to this set to prevent them from being loaded.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.close" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Close the session: close websocket, close runtime, dispose app.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.eval" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Evaluate the given JavaScript code in the client</p>
+<p>Intended for use during development and debugging. Deployable
+code should avoid making use of this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.get_cookie">
+<code class="descname">get_cookie</code><span class="sig-paren">(</span><em>name</em>, <em>default=None</em>, <em>max_age_days=31</em>, <em>min_version=None</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.get_cookie" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Gets the value of the cookie with the given name, else default.
+Note that cookies only really work for web apps.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.get_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get the data corresponding to the given name. This can be
+data local to the session, or global data. Returns None if data
+by that name is unknown.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.get_data_names">
+<code class="descname">get_data_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.get_data_names" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get a list of names of the data provided by this session.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.get_model_instance_by_id">
+<code class="descname">get_model_instance_by_id</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.get_model_instance_by_id" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Get instance of Model class corresponding to the given id,
+or None if it does not exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.id">
+<code class="descname">id</code><a class="headerlink" href="#flexx.app.Session.id" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The unique identifier of this session.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.keep_alive">
+<code class="descname">keep_alive</code><span class="sig-paren">(</span><em>ob</em>, <em>iters=4</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.keep_alive" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Keep an object alive for a certain amount of time, expressed
+in Python-JS ping roundtrips. This is intended for making Model
+objects survive jitter due to synchronisation, though any type
+of object can be given.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.present_modules">
+<code class="descname">present_modules</code><a class="headerlink" href="#flexx.app.Session.present_modules" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The set of module names that is (currently) available at the client.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.remove_data">
+<code class="descname">remove_data</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.remove_data" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Remove the data associated with the given name. If you need this,
+also consider <code class="docutils literal"><span class="pre">send_data()</span></code>. Also note that data is automatically
+released when the session is closed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.runtime">
+<code class="descname">runtime</code><a class="headerlink" href="#flexx.app.Session.runtime" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>The runtime that is rendering this app instance. Can be
+None if the client is a browser.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.app.Session.set_cookie">
+<code class="descname">set_cookie</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>expires_days=30</em>, <em>version=None</em>, <em>domain=None</em>, <em>expires=None</em>, <em>path='/'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.app.Session.set_cookie" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Sets the given cookie name/value with the given options. Set value
+to None to clear. The cookie value is secured using
+<cite>flexx.config.cookie_secret</cite>; don&#8217;t forget to set that config
+value in your server. Additional keyword arguments are set on
+the Cookie.Morsel directly.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.app.Session.status">
+<code class="descname">status</code><a class="headerlink" href="#flexx.app.Session.status" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>The status of this session. The lifecycle for each session is</em> &#8211;</p>
+<ul class="simple">
+<li>status 1: pending</li>
+<li>statys 2: connected</li>
+<li>status 0: closed</li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">App API</a><ul>
+<li><a class="reference internal" href="#functions-related-to-the-event-loop">Functions related to the event loop</a></li>
+<li><a class="reference internal" href="#functions-related-to-us-model-classes-as-apps">Functions related to us Model classes as apps</a></li>
+<li><a class="reference internal" href="#the-model-class">The Model class</a></li>
+<li><a class="reference internal" href="#session-and-assets">Session and Assets</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.app</a><ul>
+      <li>Previous: <a href="intro.html" title="前の章へ">App introduction</a></li>
+      <li>Next: <a href="examples.html" title="次の章へ">App examples</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/app/api.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/app/api.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

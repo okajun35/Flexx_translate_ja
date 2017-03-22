@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Configuration class &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Flexx utilities" href="index.html" />
+    <link rel="next" title="Logging in Flexx" href="logging.html" />
+    <link rel="prev" title="Flexx utilities" href="index.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration-class">
+<h1>Configuration class<a class="headerlink" href="#configuration-class" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>This page documents the Config class. For learning how to configure Flexx,
+see <a class="reference internal" href="../configuration.html#flexx.config" title="flexx.config"><code class="xref py py-func docutils literal"><span class="pre">configuring</span> <span class="pre">flexx</span></code></a>.</p>
+<dl class="class">
+<dt id="flexx.util.config.Config">
+<em class="property">class </em><code class="descclassname">flexx.util.config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>name</em>, <em>*sources</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.util.config.Config" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Class for configuration objects.</p>
+<p>A Config object has a set of options, which can be str, int, float,
+bool, or a tuple of any of the above. Options can be set from
+different sources:</p>
+<ul class="simple">
+<li>Each option has a default value.</li>
+<li>From .cfg or .ini files.</li>
+<li>From strings in ini format.</li>
+<li>From environment variables.</li>
+<li>From command-line arguments.</li>
+<li>By setting the config option directly.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">パラメータ:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; the name by which to identify this config. This name
+is used as a prefix in environment variables and command
+line arguments, and optionally as a section header in .cfg files.</li>
+<li><strong>*sources</strong> &#8211; Sources to initialize the option values with.
+These can be strings in ini format, or .ini or .cfg filenames.
+If a file is given that does not exist, it is simply ignored.
+Special prefixes <code class="docutils literal"><span class="pre">~/</span></code> and <code class="docutils literal"><span class="pre">~appdata/</span></code> are expanded to the
+home dir and appdata dir.</li>
+<li><strong>**options</strong> &#8211; The options specification: each option consists of
+a 3-element tuple (default, type, docstring).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-Python"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s1">&#39;myconfig&#39;</span><span class="p">,</span> <span class="s1">&#39;~appdata/.myconfig.cfg&#39;</span><span class="p">,</span>
+                <span class="n">foo</span><span class="o">=</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;Whether to foo&#39;</span><span class="p">),</span>
+                <span class="n">bar</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;The size of the bar&#39;</span><span class="p">),</span>
+                <span class="n">spam</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;1,2,3&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="s1">&#39;A tuple of ints&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>With this, options can be set:</p>
+<ul class="simple">
+<li>With an entry <code class="docutils literal"><span class="pre">foo</span> <span class="pre">=</span> <span class="pre">3</span></code> in &#8220;~appdata/.myconfig.cfg&#8221;.</li>
+<li>With a string <code class="docutils literal"><span class="pre">&quot;foo</span> <span class="pre">=</span> <span class="pre">3&quot;</span></code> passed at initialization.</li>
+<li>With an environment variable named <code class="docutils literal"><span class="pre">MYCONFIG_FOO</span></code>.</li>
+<li>With a command line argument <code class="docutils literal"><span class="pre">--myconfig-foo=3</span></code>.</li>
+<li>By doing <code class="docutils literal"><span class="pre">config.foo</span> <span class="pre">=</span> <span class="pre">3</span></code>, or <code class="docutils literal"><span class="pre">config['foo']</span> <span class="pre">=</span> <span class="pre">3</span></code> in Python.</li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li>Option names are case insensitive, except for attribute access and
+environment variables (the latter must be all uppercase).</li>
+<li>All values can be set as a Python object or a string; they
+are automatically converted to the correct type.</li>
+<li>Each instance gets a docstring that lists all options, so it
+can easily be used in e.g. Sphynx docs.</li>
+</ul>
+<dl class="method">
+<dt id="flexx.util.config.Config.load_from_file">
+<code class="descname">load_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.util.config.Config.load_from_file" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Load config options from a file, as if it was given as a
+source during initialization. This means that options set via
+argv, environ or directly will not be influenced.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="flexx.util.config.Config.load_from_string">
+<code class="descname">load_from_string</code><span class="sig-paren">(</span><em>text</em>, <em>filename='&lt;string&gt;'</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.util.config.Config.load_from_string" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>Load config options from a string, as if it was given as a
+source during initialization. This means that options set via
+argv, environ or directly will not be influenced.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Flexx utilities</a><ul>
+      <li>Previous: <a href="index.html" title="前の章へ">Flexx utilities</a></li>
+      <li>Next: <a href="logging.html" title="次の章へ">Logging in Flexx</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/util/config.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/util/config.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

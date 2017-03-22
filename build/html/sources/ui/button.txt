@@ -1,0 +1,22 @@
+Button
+------
+
+.. automodule:: flexx.ui.widgets._button
+
+----
+
+.. autoclass:: flexx.ui.BaseButton
+ :members:
+
+.. autoclass:: flexx.ui.Button
+ :members:
+
+.. autoclass:: flexx.ui.CheckBox
+ :members:
+
+.. autoclass:: flexx.ui.RadioButton
+ :members:
+
+.. autoclass:: flexx.ui.ToggleButton
+ :members:
+

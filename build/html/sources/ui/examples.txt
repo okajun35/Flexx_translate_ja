@@ -1,0 +1,41 @@
+Ui examples
+===========
+
+* `flexx_tutorial_ui.ipynb <https://github.com/zoofIO/flexx-notebooks/blob/master/flexx_tutorial_ui.ipynb>`_ (external notebook)
+* :ref:`boxes.py`
+* :ref:`boxpanel_vs_boxlayout.py`
+* :ref:`chatroom.py`
+* :ref:`circles.py`
+* :ref:`classic_web_dev.py`
+* :ref:`code_editor_ace.py`
+* :ref:`code_editor_cm.py`
+* :ref:`colab_painting.py`
+* :ref:`cookies.py`
+* :ref:`deep.py`
+* :ref:`deep2.py`
+* :ref:`deep_event_connections.py`
+* :ref:`demo.py`
+* :ref:`dock.py`
+* :ref:`drawing.py`
+* :ref:`errors.py`
+* :ref:`form.py`
+* :ref:`hello_world1.py`
+* :ref:`hello_world2.py`
+* :ref:`icons.py`
+* :ref:`leaflet.py`
+* :ref:`mondriaan.py`
+* :ref:`monitor.py`
+* :ref:`send_data.py`
+* :ref:`serve_data.py`
+* :ref:`serve_multiple1.py`
+* :ref:`serve_multiple2.py`
+* :ref:`splines.py`
+* :ref:`split.py`
+* :ref:`stayin_alive.py`
+* :ref:`twente.py`
+* :ref:`using_python_in_js.py`
+* :ref:`video_viewer.py`
+* :ref:`with_bokeh.py`
+* :ref:`with_jquery.py`
+
+There is also an `overview of all ui examples (heavy page) <all_examples.html>`_

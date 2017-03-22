@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dropdown &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <script type="text/javascript" src="../static/translations.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../index.html" />
+    <link rel="up" title="Ui API" href="api.html" />
+    <link rel="next" title="Group" href="group.html" />
+    <link rel="prev" title="Color" href="color.html" />
+   
+  <link rel="stylesheet" href="../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-flexx.ui.widgets._dropdown">
+<span id="dropdown"></span><h1>Dropdown<a class="headerlink" href="#module-flexx.ui.widgets._dropdown" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">ui</span><span class="o">.</span><span class="n">ComboBox</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;chooce:&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;spaaaam&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example602968a738afdc0855a7f9bdc4ad0d69.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 120px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example602968a738afdc0855a7f9bdc4ad0d69.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">ui</span>
+
+<span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">CSS</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">        .flx-DropdownContainer &gt; .flx-TreeWidget {</span>
+<span class="s1">            min-height: 150px;</span>
+<span class="s1">        }</span>
+<span class="s1">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># A nice and cosy tree view</span>
+        <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">DropdownContainer</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;Scene graph&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">ui</span><span class="o">.</span><span class="n">TreeWidget</span><span class="p">(</span><span class="n">max_selected</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+                    <span class="n">ui</span><span class="o">.</span><span class="n">TreeItem</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;foo </span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">checked</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="c1"># A combobox</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">combo</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">ComboBox</span><span class="p">(</span><span class="n">editable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                 <span class="n">options</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;spaaaaaaaaam&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Label</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">JS</span><span class="p">:</span>
+
+        <span class="nd">@event.connect</span><span class="p">(</span><span class="s1">&#39;combo.text&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">on_combobox_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Combobox text: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">combo</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">combo</span><span class="o">.</span><span class="n">selected_index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39; (index </span><span class="si">%i</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">combo</span><span class="o">.</span><span class="n">selected_index</span>
+</pre></div>
+</div>
+<a target='new' href='../ui/examples/example983d145a22433403a41b63bde6927f49.html' style='font-size:small; float:right;'>open in new tab</a><div style='width: 500px; height: 220px; align: center; resize:both; overflow: hidden; box-shadow: 5px 5px 5px #777;'><iframe src='../ui/examples/example983d145a22433403a41b63bde6927f49.html' style='width: 100%; height: 100%; border: 2px solid #094;'>iframe not supported</iframe></div><br /><hr class="docutils" />
+<dl class="class">
+<dt id="flexx.ui.widgets._dropdown.BaseDropdown">
+<em class="property">class </em><code class="descclassname">flexx.ui.widgets._dropdown.</code><code class="descname">BaseDropdown</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.widgets._dropdown.BaseDropdown" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="widget.html#flexx.ui.Widget" title="flexx.ui.Widget"><code class="xref py py-class docutils literal"><span class="pre">Widget</span></code></a></p>
+<p>Base class for drop-down-like widgets.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.ComboBox">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">ComboBox</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.ComboBox" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.widgets._dropdown.BaseDropdown" title="flexx.ui.widgets._dropdown.BaseDropdown"><code class="xref py py-class docutils literal"><span class="pre">BaseDropdown</span></code></a></p>
+<p>The Combobox is a combination of a button and a popup list, optionally
+with an editable text. It can be used to select among a set of
+options in a more compact manner than a TreeWidget would.
+Optionally, the text of the combobox can be edited.
+Connect to the <code class="docutils literal"><span class="pre">text</span></code> and/or <code class="docutils literal"><span class="pre">selected_index</span></code> properties to keep
+track of interactions.</p>
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.editable">
+<code class="descname">editable</code><a class="headerlink" href="#flexx.ui.ComboBox.editable" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; Whether the combobox&#8217;s text is editable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.options">
+<code class="descname">options</code><a class="headerlink" href="#flexx.ui.ComboBox.options" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; A list of tuples (key, text) representing the options.
+For items that are given as a string, the key and text are the same.
+If a dict is given, it is transformed to key-text pairs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.placeholder_text">
+<code class="descname">placeholder_text</code><a class="headerlink" href="#flexx.ui.ComboBox.placeholder_text" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The placeholder text to display in editable mode.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.selected_index">
+<code class="descname">selected_index</code><a class="headerlink" href="#flexx.ui.ComboBox.selected_index" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The currently selected item index. Can be None if no item has
+been selected or when the text was changed manually (if editable).
+Can also be programatically set.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.selected_key">
+<code class="descname">selected_key</code><a class="headerlink" href="#flexx.ui.ComboBox.selected_key" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The currently selected item key. Can be None if no item has
+been selected or when the text was changed manually (if editable).
+Can also be programatically set.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="flexx.ui.ComboBox.text">
+<code class="descname">text</code><a class="headerlink" href="#flexx.ui.ComboBox.text" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The text displayed on the widget. This property is set
+when an item is selected from the dropdown menu. When editable,
+the <code class="docutils literal"><span class="pre">text</span></code> is also set when the text is edited by the user.
+This property is settable programatically regardless of the
+value of <code class="docutils literal"><span class="pre">editable</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flexx.ui.DropdownContainer">
+<em class="property">class </em><code class="descclassname">flexx.ui.</code><code class="descname">DropdownContainer</code><span class="sig-paren">(</span><em>*init_args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#flexx.ui.DropdownContainer" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><em>Inherits from:</em> <a class="reference internal" href="#flexx.ui.widgets._dropdown.BaseDropdown" title="flexx.ui.widgets._dropdown.BaseDropdown"><code class="xref py py-class docutils literal"><span class="pre">BaseDropdown</span></code></a></p>
+<p>A dropdown widget that shows its children when expanded. This can be
+used to e.g. make a collapsable tree widget. Some styling may be required
+for the child widget to be sized appropriately.</p>
+<dl class="attribute">
+<dt id="flexx.ui.DropdownContainer.text">
+<code class="descname">text</code><a class="headerlink" href="#flexx.ui.DropdownContainer.text" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p><strong>property</strong> &#8211; The text displayed on the widget.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Reference for flexx.ui</a><ul>
+  <li><a href="api.html">Ui API</a><ul>
+      <li>Previous: <a href="color.html" title="前の章へ">Color</a></li>
+      <li>Next: <a href="group.html" title="次の章へ">Group</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../sources/ui/dropdown.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../sources/ui/dropdown.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

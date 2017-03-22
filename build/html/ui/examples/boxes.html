@@ -1,0 +1,443 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flexx UI</title>
+</head>
+
+<body id='body'>
+
+<div class='flx-spinner' style='position:absolute; top:25%; bottom:25%;
+left:25%; right:25%; background:#fff; color:#555; text-align:center;
+word-break: break-all; border-radius:0.5em; padding:0.5em;'>
+Starting Flexx app <div style='font-size:50%; color:#66A;'></div>
+</div>
+
+<script>var flexx = {app_name: "boxes", session_id: "boxes"};</script>
+
+<link rel='stylesheet' type='text/css' href='_assets/shared/reset.css' id='reset.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/phosphor-all.css' id='phosphor-all.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/flexx.ui._widget.css' id='flexx.ui._widget.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/flexx.ui.widgets._label.css' id='flexx.ui.widgets._label.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/app_boxes.css' id='app_boxes.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/flexx.ui.layouts._layout.css' id='flexx.ui.layouts._layout.css' />
+<link rel='stylesheet' type='text/css' href='_assets/shared/flexx.ui.layouts._box.css' id='flexx.ui.layouts._box.css' />
+
+<script src='_assets/shared/flexx-core.js' id='flexx-core.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/phosphor-all.js' id='phosphor-all.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/flexx.ui._widget.js' id='flexx.ui._widget.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/flexx.ui.widgets._label.js' id='flexx.ui.widgets._label.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/app_boxes.js' id='app_boxes.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/flexx.ui.layouts._layout.js' id='flexx.ui.layouts._layout.js'></script>
+<script>window.flexx.spin();</script>
+<script src='_assets/shared/flexx.ui.layouts._box.js' id='flexx.ui.layouts._box.js'></script>
+<script>window.flexx.spin();</script>
+<script id='flexx-export.js'>
+flexx.is_exported = true;
+
+flexx.runExportedApp = function () {
+    flexx.command("EXEC flexx.instances.Boxes1 = new flexx.classes.Boxes(\"Boxes1\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Boxes1._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Boxes1._set_prop_from_py(\"container\", \"\\\"body\\\"\");");
+    flexx.command("EXEC flexx.instances.Boxes1._set_prop_from_py(\"icon\", \"\\\"data:image/ico;base64,AAABAAYAEBAAAAAAIAAoBAAAZgAAACAgAAAAACAAKBAAAI4EAAAwMAAAAAAgACgkAAC2FAAAQEAA\\\\nAAAAIADNAAAA3jgAAICAAAAAACAAkQEAAKs5AAAAAAAAAAAgAGUEAAA8OwAAKAAAABAAAAAgAAAA\\\\nAQAgAAAAAAAABAAAEwsAABMLAAAAAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/KCh4QAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw\\\\n/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo\\\\nKHhAUFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAKCh4KigoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/ygoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nKCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P8oKHhAUFDw/1BQ8P9Q\\\\nUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/KCh4QFBQ\\\\n8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw\\\\n/ygoeEBQUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4KigoeEAoKHhA\\\\nKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCoAAAAAAAAAAAAAAAAo\\\\nKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAA\\\\nAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4\\\\nQAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/ygoeEAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAUFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAKCh4KigoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neEAoKHhAKCh4QCgoeEAoKHhAKCh4KgAAAAAoAAAAIAAAAEAAAAABACAAAAAAAAAQAAATCwAAEwsA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4KigoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neCoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgo\\\\neEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4\\\\nQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4\\\\nQFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4KigoeEAoKHhAKCh4QCgo\\\\neEAoKHhAKCh4QCgoeCoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCooKHgqKCh4QCgoeEAo\\\\nKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4\\\\nQCgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P8oKHhAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QCgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/ygoeEAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QCgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAKCh4QFBQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCoo\\\\nKHgqKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHgqKCh4QCgoeEAoKHhAKCh4\\\\nQCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCooKHgqKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhA\\\\nKCh4QCgoeEAoKHhAKCh4QCgoeCoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQ\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QCgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/ygoeEAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/ygoeEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/KCh4QCgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/KCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAKCh4QFBQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAoKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAo\\\\nKHhAUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/ygoeEAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/KCh4QCgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nKCh4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAKCh4QFBQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoKHgqKCh4\\\\nQCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCooKHgqKCh4QCgoeEAoKHhA\\\\nKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeCoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nACgAAAAwAAAAYAAAAAEAIAAAAAAAACQAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4\\\\nQCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgo\\\\neEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQ\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8o\\\\nKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4\\\\nQCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neEAoKHhAKCh4QCgoeEAoKHgqAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4\\\\nQCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8o\\\\nKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQ\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgo\\\\neEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8o\\\\nKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neEAoKHgqAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4\\\\nQCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAo\\\\nKHhAKCh4QCgoeEAoKHgqAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQ\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQ\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAA\\\\nACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/\\\\nUFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw\\\\n/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeEBQUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9Q\\\\nUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAAACgoeEBQUPD/UFDw/1BQ\\\\n8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P9QUPD/UFDw/1BQ8P8oKHhAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgoeCooKHhA\\\\nKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAo\\\\nKHgqAAAAACgoeCooKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgoeEAoKHhAKCh4QCgo\\\\neEAoKHhAKCh4QCgoeEAoKHgqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJUE5HDQoaCgAAAA1JSERSAAAAQAAAAEAIBgAAAKppcd4A\\\\nAACUSURBVHja7djNCYAwDIBRxymZIiN0HMd2A382EK2hyPsg1xwepYcsi6S7ra3FOTl4omr/CIDc\\\\net9HzrWzaj8AAAAAAAAAAAAAAAAAAAAAwEFEqnny8dW+CoCc7ZMb+qkBAAAAAAAAAAAAAAAAAAAA\\\\nABxE5Ab46InGnwBy6k8JAAAAAAAAAAAAAAAAAAAAAOAgIultB9fd1LsKoFToAAAAAElFTkSuQmCC\\\\niVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAABWElEQVR42u3cwQ2AIAxAUcYhTMEI\\\\njOPYboC6gQdjSnk/4d6Qd4FDS5EkSZIk6ZuOWtt9evDTss4fAUA/x5iRzzNj1vkBAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAOAlAAsidl4QIUmSJClbQZ5JbdX5MgDoPnIW/qgBAAAAAAAAAAAAAAAAAAAAAAAA\\\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\\\nYBcAFkTY4ydJkiTJM88zyUePjxIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADc\\\\nNAACQAAIAAEgAASAABAAAkAACAABIAAEgADQfwAsiJAkSZIkKU8XuJ51sTMCZpgAAAAASUVORK5C\\\\nYIKJUE5HDQoaCgAAAA1JSERSAAABAAAAAQAIBgAAAFxyqGYAAAQsSURBVHja7dxREYMwEEVR5GRW\\\\nRSQgB9k4gKwFCAMJ587EwOv2/LXLIkmSJEmSJEmSJEmSJEmSJEmSJEmSJEn920qJ9qp364X9x9wf\\\\nAG3AfV0P7/rLDe0/5v4AcIAAAAAAPAAAAAAeAAAAAA8AAACABwAAAMADAAAA4AEAAADwAAAAAHgA\\\\nAAAAPAAAAAAO0P4AAIADtD8AAOAA7Q8AADhA+wMAAA7Q/gAAgAO0PwAA4ADtDwAAOED7AwAAALA/\\\\nAAAAAA8AAACABwAAAMADAAAA4AEAAADwAAAAAHgAAAAAPAAAAAAeAAAAAA8AAACA/eUAAWB/OUAA\\\\n2F8OEAD2lwMEgP3lAAFgfzlAANhfDhAA9pcDBAAAAOAAAQAAAHgAAAAAPAAAAAAeAAAAAA8AAACA\\\\nBwAAAMADAAAA4AEAAADwAAAAAHgAAAAAHKD9AQAAB2h/AADAAdofAABwgPYHAAAcoP0BAAAHaH8A\\\\nAMAB2h8AAHCA9gcAAABgfwAAAAAeAAAAAA8AAACABwAAAMADAAAA4AEAAADwAAAAAHgA6ApA5IDe\\\\nrRf2H3N/SZIkSZIkSZIkSZIkSZIkSZIkSZKkh/NzUj/H9XPafwNQ/SGEP+TwhxoAcMD2AwAAHLD9\\\\nAAAAB2w/AADAAdsPAABwwPYDAAAcsP0AAAAHbD8AAMAB2w8AAACA/QAAAADYTwAAgP0EAADYTwAA\\\\ngP0EAADYTwAAgP0EAADYTwAAgP0EAAAAQAAAAAAEAAAAQAAAAAAEAAAAQAAAAAAEAAAAQAAAAAAE\\\\nAAAAQAAAAAAEAAAAQA4YAACQAwYAAOSAAQAAOWAAAEAOGAAAkAMGAADkgAEAADlgAAAAAA4YAAAA\\\\ngAO2HwAA4IDtBwAAOGD7AQAADth+AACAA7YfAADggO0HAAA4YPsBAAAO2H4AAAAA7OebBAAA2E8A\\\\nAID9BAAA2E8AAID9BAAA2E8AAID9BAAA2E8AAID9BAAAAEAAAAAABAAAAEAAAAAABAAAAEAAAAAA\\\\nBAAAAEAAAAAABAAAAEAdAIj8AH/+wn7v7CdJkiRJkiRJkiRJkiRJkiRJkiRJkjR5k/wc1c9JpYsA\\\\nVH8oIQEAABIAACABAAASAAAgAQAAEgAAIAEAABIAACABAAASAAAgAQAAEgAAIAEAABIAACABAAAS\\\\nAAAgAQAAEgAAIAEAABIAACABAAASAAAgAQAAEgAAIAEAABIAACABAAASAHySEgAkAUASACQBQBIA\\\\nJAFAEgAkAUACAAAkAABAAgAAJAAAQAIAACQAAEACAAAkAABAAgAAJAAAQAIAACQAAEACAAAkAABA\\\\nAgAAJAAAQAIAACQAAEACAAAkAABAAgAAJAAAQAIAACQAAEACAAAkAABAAgAApA4ARH6BBn/hk5Qk\\\\nSZIkSZIkSZIkSZIkSZIkSZIkSZIkfawT7GpUzbEr4JsAAAAASUVORK5CYII=\\\\n\\\"\");");
+    flexx.command("EXEC flexx.instances.Boxes1._set_prop_from_py(\"title\", \"\\\"Flexx app - Boxes\\\"\");");
+    flexx.command("EXEC flexx.instances.HBox2 = new flexx.classes.HBox(\"HBox2\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.HBox2._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Boxes1._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"HBox2\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.HBox2.init();");
+    flexx.command("EXEC flexx.instances.HBox2._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.HBox2._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.HBox2._init_handlers();");
+    flexx.command("EXEC flexx.instances.VBox3 = new flexx.classes.VBox(\"VBox3\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.VBox3._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.HBox2._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"VBox3\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.VBox3.init();");
+    flexx.command("EXEC flexx.instances.VBox3._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.VBox3._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.VBox3._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label4 = new flexx.classes.Label(\"Label4\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label4._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label4._set_prop_from_py(\"text\", \"\\\"<b>BoxLayout</b> (aware of natural size)\\\"\");");
+    flexx.command("EXEC flexx.instances.Label4.init();");
+    flexx.command("EXEC flexx.instances.Label4._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label4._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label4._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label5 = new flexx.classes.Label(\"Label5\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label5._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label5._set_prop_from_py(\"text\", \"\\\"flex: 1, sub-flexes: 0, 0, 0\\\"\");");
+    flexx.command("EXEC flexx.instances.Label5.init();");
+    flexx.command("EXEC flexx.instances.Label5._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label5._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label5._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxLayout6 = new flexx.classes.BoxLayout(\"BoxLayout6\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout6._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout6._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout6.init();");
+    flexx.command("EXEC flexx.instances.BoxLayout6._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxLayout6._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout6._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel7 = new flexx.classes.Panel(\"Panel7\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel7._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout6._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel7\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel7._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel7.init();");
+    flexx.command("EXEC flexx.instances.Panel7._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel7._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel7._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel8 = new flexx.classes.Panel(\"Panel8\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel8._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout6._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel7\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel8\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel8._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel8.init();");
+    flexx.command("EXEC flexx.instances.Panel8._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel8._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel8._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel9 = new flexx.classes.Panel(\"Panel9\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel9._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout6._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel7\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel8\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel9\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel9._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel9.init();");
+    flexx.command("EXEC flexx.instances.Panel9._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel9._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel9._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label10 = new flexx.classes.Label(\"Label10\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label10._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label10._set_prop_from_py(\"text\", \"\\\"flex: 0, sub-flexes: 1, 1, 1\\\"\");");
+    flexx.command("EXEC flexx.instances.Label10.init();");
+    flexx.command("EXEC flexx.instances.Label10._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label10._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label10._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxLayout11 = new flexx.classes.BoxLayout(\"BoxLayout11\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout11._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout11\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout11.init();");
+    flexx.command("EXEC flexx.instances.BoxLayout11._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxLayout11._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout11._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel12 = new flexx.classes.Panel(\"Panel12\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel12._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel12._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout11._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel12\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel12._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel12.init();");
+    flexx.command("EXEC flexx.instances.Panel12._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel12._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel12._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel13 = new flexx.classes.Panel(\"Panel13\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel13._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel13._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout11._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel12\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel13\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel13._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel13.init();");
+    flexx.command("EXEC flexx.instances.Panel13._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel13._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel13._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel14 = new flexx.classes.Panel(\"Panel14\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel14._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel14._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout11._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel12\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel13\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel14\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel14._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel14.init();");
+    flexx.command("EXEC flexx.instances.Panel14._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel14._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel14._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label15 = new flexx.classes.Label(\"Label15\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label15._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout11\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label15\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label15._set_prop_from_py(\"text\", \"\\\"flex: 1, sub-flexes: 1, 0, 2\\\"\");");
+    flexx.command("EXEC flexx.instances.Label15.init();");
+    flexx.command("EXEC flexx.instances.Label15._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label15._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label15._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxLayout16 = new flexx.classes.BoxLayout(\"BoxLayout16\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout16._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout16._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout11\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label15\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout16\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout16.init();");
+    flexx.command("EXEC flexx.instances.BoxLayout16._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxLayout16._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout16._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel17 = new flexx.classes.Panel(\"Panel17\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel17._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel17._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout16._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel17\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel17._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel17.init();");
+    flexx.command("EXEC flexx.instances.Panel17._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel17._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel17._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel18 = new flexx.classes.Panel(\"Panel18\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel18._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout16._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel17\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel18\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel18._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel18.init();");
+    flexx.command("EXEC flexx.instances.Panel18._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel18._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel18._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel19 = new flexx.classes.Panel(\"Panel19\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel19._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel19._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout16._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel17\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel18\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel19\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel19._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel19.init();");
+    flexx.command("EXEC flexx.instances.Panel19._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel19._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel19._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label20 = new flexx.classes.Label(\"Label20\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label20._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout11\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label15\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout16\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label20\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label20._set_prop_from_py(\"text\", \"\\\"flex: 2, sub-flexes: 1, 2, 3\\\"\");");
+    flexx.command("EXEC flexx.instances.Label20.init();");
+    flexx.command("EXEC flexx.instances.Label20._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label20._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label20._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxLayout21 = new flexx.classes.BoxLayout(\"BoxLayout21\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout21._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxLayout21._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.VBox3._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label4\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label5\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout6\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label10\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout11\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label15\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout16\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label20\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxLayout21\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout21.init();");
+    flexx.command("EXEC flexx.instances.BoxLayout21._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxLayout21._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxLayout21._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel22 = new flexx.classes.Panel(\"Panel22\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel22._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel22._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout21._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel22\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel22._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel22.init();");
+    flexx.command("EXEC flexx.instances.Panel22._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel22._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel22._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel23 = new flexx.classes.Panel(\"Panel23\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel23._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel23._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout21._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel22\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel23\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel23._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel23.init();");
+    flexx.command("EXEC flexx.instances.Panel23._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel23._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel23._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel24 = new flexx.classes.Panel(\"Panel24\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel24._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel24._set_prop_from_py(\"flex\", \"[3.0, 3.0]\");");
+    flexx.command("EXEC flexx.instances.BoxLayout21._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel22\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel23\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel24\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel24._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel24.init();");
+    flexx.command("EXEC flexx.instances.Panel24._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel24._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel24._init_handlers();");
+    flexx.command("EXEC flexx.instances.Widget25 = new flexx.classes.Widget(\"Widget25\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Widget25._sync_props = true;");
+    flexx.command("EXEC flexx.instances.HBox2._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"VBox3\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Widget25\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Widget25._set_prop_from_py(\"style\", \"\\\"min-width:20px\\\"\");");
+    flexx.command("EXEC flexx.instances.Widget25.init();");
+    flexx.command("EXEC flexx.instances.Widget25._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Widget25._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Widget25._init_handlers();");
+    flexx.command("EXEC flexx.instances.VBox26 = new flexx.classes.VBox(\"VBox26\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.VBox26._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.HBox2._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"VBox3\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Widget25\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"VBox26\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.VBox26.init();");
+    flexx.command("EXEC flexx.instances.VBox26._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.VBox26._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.VBox26._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label27 = new flexx.classes.Label(\"Label27\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label27._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label27._set_prop_from_py(\"text\", \"\\\"<b>BoxPanel</b> (high level layout)\\\"\");");
+    flexx.command("EXEC flexx.instances.Label27.init();");
+    flexx.command("EXEC flexx.instances.Label27._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label27._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label27._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label28 = new flexx.classes.Label(\"Label28\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label28._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label28._set_prop_from_py(\"text\", \"\\\"flex: 1, sub-flexes: 0, 0, 0\\\"\");");
+    flexx.command("EXEC flexx.instances.Label28.init();");
+    flexx.command("EXEC flexx.instances.Label28._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label28._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label28._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxPanel29 = new flexx.classes.BoxPanel(\"BoxPanel29\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel29._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel29._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel29.init();");
+    flexx.command("EXEC flexx.instances.BoxPanel29._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxPanel29._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel29._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel30 = new flexx.classes.Panel(\"Panel30\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel30._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel29._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel30\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel30._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel30.init();");
+    flexx.command("EXEC flexx.instances.Panel30._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel30._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel30._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel31 = new flexx.classes.Panel(\"Panel31\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel31._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel29._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel30\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel31\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel31._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel31.init();");
+    flexx.command("EXEC flexx.instances.Panel31._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel31._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel31._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel32 = new flexx.classes.Panel(\"Panel32\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel32._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel29._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel30\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel31\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel32\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel32._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel32.init();");
+    flexx.command("EXEC flexx.instances.Panel32._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel32._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel32._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label33 = new flexx.classes.Label(\"Label33\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label33._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label33._set_prop_from_py(\"text\", \"\\\"flex: 0 (collapses), sub-flexes: 1, 1, 1\\\"\");");
+    flexx.command("EXEC flexx.instances.Label33.init();");
+    flexx.command("EXEC flexx.instances.Label33._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label33._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label33._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxPanel34 = new flexx.classes.BoxPanel(\"BoxPanel34\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel34._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel34\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel34.init();");
+    flexx.command("EXEC flexx.instances.BoxPanel34._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxPanel34._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel34._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel35 = new flexx.classes.Panel(\"Panel35\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel35._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel35._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel34._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel35\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel35._set_prop_from_py(\"style\", \"\\\"min-height:5px;\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel35._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel35.init();");
+    flexx.command("EXEC flexx.instances.Panel35._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel35._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel35._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel36 = new flexx.classes.Panel(\"Panel36\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel36._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel36._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel34._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel35\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel36\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel36._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel36.init();");
+    flexx.command("EXEC flexx.instances.Panel36._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel36._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel36._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel37 = new flexx.classes.Panel(\"Panel37\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel37._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel37._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel34._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel35\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel36\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel37\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel37._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel37.init();");
+    flexx.command("EXEC flexx.instances.Panel37._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel37._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel37._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label38 = new flexx.classes.Label(\"Label38\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label38._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel34\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label38\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label38._set_prop_from_py(\"text\", \"\\\"flex: 1, sub-flexes: 1, 0, 2\\\"\");");
+    flexx.command("EXEC flexx.instances.Label38.init();");
+    flexx.command("EXEC flexx.instances.Label38._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label38._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label38._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxPanel39 = new flexx.classes.BoxPanel(\"BoxPanel39\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel39._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel39._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel34\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label38\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel39\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel39.init();");
+    flexx.command("EXEC flexx.instances.BoxPanel39._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxPanel39._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel39._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel40 = new flexx.classes.Panel(\"Panel40\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel40._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel40._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel39._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel40\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel40._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel40.init();");
+    flexx.command("EXEC flexx.instances.Panel40._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel40._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel40._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel41 = new flexx.classes.Panel(\"Panel41\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel41._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel39._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel40\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel41\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel41._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel41.init();");
+    flexx.command("EXEC flexx.instances.Panel41._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel41._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel41._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel42 = new flexx.classes.Panel(\"Panel42\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel42._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel42._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel39._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel40\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel41\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel42\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel42._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel42.init();");
+    flexx.command("EXEC flexx.instances.Panel42._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel42._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel42._init_handlers();");
+    flexx.command("EXEC flexx.instances.Label43 = new flexx.classes.Label(\"Label43\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Label43._sync_props = true;");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel34\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label38\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel39\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label43\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Label43._set_prop_from_py(\"text\", \"\\\"flex: 2, sub-flexes: 1, 2, 3\\\"\");");
+    flexx.command("EXEC flexx.instances.Label43.init();");
+    flexx.command("EXEC flexx.instances.Label43._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Label43._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Label43._init_handlers();");
+    flexx.command("EXEC flexx.instances.BoxPanel44 = new flexx.classes.BoxPanel(\"BoxPanel44\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel44._sync_props = true;");
+    flexx.command("EXEC flexx.instances.BoxPanel44._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.VBox26._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label27\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label28\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel29\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label33\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel34\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label38\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel39\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Label43\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"BoxPanel44\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel44.init();");
+    flexx.command("EXEC flexx.instances.BoxPanel44._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.BoxPanel44._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.BoxPanel44._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel45 = new flexx.classes.Panel(\"Panel45\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel45._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel45._set_prop_from_py(\"flex\", \"[1.0, 1.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel44._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel45\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel45._set_prop_from_py(\"text\", \"\\\"A\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel45.init();");
+    flexx.command("EXEC flexx.instances.Panel45._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel45._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel45._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel46 = new flexx.classes.Panel(\"Panel46\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel46._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel46._set_prop_from_py(\"flex\", \"[2.0, 2.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel44._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel45\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel46\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel46._set_prop_from_py(\"text\", \"\\\"B\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel46.init();");
+    flexx.command("EXEC flexx.instances.Panel46._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel46._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel46._init_handlers();");
+    flexx.command("EXEC flexx.instances.Panel47 = new flexx.classes.Panel(\"Panel47\", [\"parent:aaa\"], [\"key_down\", \"key_press\", \"key_up\", \"mouse_down\", \"mouse_move\", \"mouse_up\", \"mouse_wheel\", \"parent\", \"sync_props\"]);");
+    flexx.command("EXEC flexx.instances.Panel47._sync_props = true;");
+    flexx.command("EXEC flexx.instances.Panel47._set_prop_from_py(\"flex\", \"[3.0, 3.0]\");");
+    flexx.command("EXEC flexx.instances.BoxPanel44._set_prop_from_py(\"children\", \"[{\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel45\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel46\\\", \\\"session_id\\\": \\\"boxes\\\"}, {\\\"__type__\\\": \\\"Flexx-Model\\\", \\\"id\\\": \\\"Panel47\\\", \\\"session_id\\\": \\\"boxes\\\"}]\");");
+    flexx.command("EXEC flexx.instances.Panel47._set_prop_from_py(\"text\", \"\\\"C is a bit longer\\\"\");");
+    flexx.command("EXEC flexx.instances.Panel47.init();");
+    flexx.command("EXEC flexx.instances.Panel47._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Panel47._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Panel47._init_handlers();");
+    flexx.command("EXEC flexx.instances.Boxes1.init();");
+    flexx.command("EXEC flexx.instances.Boxes1._new_event_type_hook(\"parent\");");
+    flexx.command("EXEC flexx.instances.Boxes1._set_event_types_py([\"parent\"]);");
+    flexx.command("EXEC flexx.instances.Boxes1._init_handlers();");
+    flexx.command("INIT-DONE");
+};
+
+</script>
+<script>window.flexx.spin();</script>
+
+
+</body>
+</html>

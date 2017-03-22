@@ -1,0 +1,10 @@
+Split
+-----
+
+.. automodule:: flexx.ui.layouts._split
+
+----
+
+.. autoclass:: flexx.ui.SplitPanel
+ :members:
+

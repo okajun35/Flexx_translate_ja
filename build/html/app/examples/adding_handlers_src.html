@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>adding_handlers.py &#8212; Flexx 1.0 ドキュメント</title>
+    
+    <link rel="stylesheet" href="../../static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../static/jquery.js"></script>
+    <script type="text/javascript" src="../../static/underscore.js"></script>
+    <script type="text/javascript" src="../../static/doctools.js"></script>
+    <script type="text/javascript" src="../../static/translations.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="top" title="Flexx 1.0 ドキュメント" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-handlers-py">
+<span id="id1"></span><h1>adding_handlers.py<a class="headerlink" href="#adding-handlers-py" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="highlight-py"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example that demonstrates how to add cusom Tornado handlers, for</span>
+<span class="sd">instance to serve a custom HTML page, or a (REST) api from the same</span>
+<span class="sd">process.</span>
+
+<span class="sd">For the sake of the example, we alo serve two example web apps.</span>
+
+<span class="sd">Goto:</span>
+
+<span class="sd">* http://localhost:port/ to see a list of served web apps</span>
+<span class="sd">* http://localhost:port/about to see a the custom about page</span>
+<span class="sd">* http://localhost:port/api/foo/bar to see the echo api in action</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">flexx</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">flexx.ui.examples.drawing</span> <span class="kn">import</span> <span class="n">Drawing</span>
+<span class="kn">from</span> <span class="nn">flexx.ui.examples.chatroom</span> <span class="kn">import</span> <span class="n">ChatRoom</span>
+
+<span class="kn">import</span> <span class="nn">tornado.web</span>
+
+<span class="c1"># Serve some web apps, just for fun</span>
+<span class="n">app</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">Drawing</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">ChatRoom</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MyAboutHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;This is just an &lt;i&gt;example&lt;/i&gt;.&lt;/html&gt;&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MyAPIHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="c1"># self.request.path -&gt; full path</span>
+        <span class="c1"># path -&gt; the regexp group specified in add_handlers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;echo &#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span>
+
+
+<span class="c1"># Get a ref to the tornado.web.Application object</span>
+<span class="n">tornado_app</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">current_server</span><span class="p">()</span><span class="o">.</span><span class="n">app</span>
+
+<span class="c1"># Add our handler</span>
+<span class="n">tornado_app</span><span class="o">.</span><span class="n">add_handlers</span><span class="p">(</span><span class="s2">r&quot;.*&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="s2">r&quot;/about&quot;</span><span class="p">,</span> <span class="n">MyAboutHandler</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s2">r&quot;/api/(.*)&quot;</span><span class="p">,</span> <span class="n">MyAPIHandler</span><span class="p">)])</span>
+
+<span class="c1"># Note: Tornado tries to match handlers in order, but the handlers</span>
+<span class="c1"># specified in the constructor come last. Therefore we can easily add</span>
+<span class="c1"># specific handlers here even though Flexx&#39; main handler is very</span>
+<span class="c1"># generic.</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../sources/app/examples/adding_handlers_src.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="検索" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015-2017, Flexx contributors.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="../../sources/app/examples/adding_handlers_src.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

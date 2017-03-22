@@ -1,0 +1,10 @@
+Tabs
+----
+
+.. automodule:: flexx.ui.layouts._tabs
+
+----
+
+.. autoclass:: flexx.ui.TabPanel
+ :members:
+
